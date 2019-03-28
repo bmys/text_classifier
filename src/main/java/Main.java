@@ -1,10 +1,8 @@
-import org.jsoup.nodes.Document;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -43,7 +41,17 @@ public class Main {
         cor.add(vec1);
         cor.add(vec2);
 
-        System.out.println(Vectorizer.generateCorpus(cor));
+        Map<String, Integer> o = Vectorizer.generateCorpus(cor);
+
+        System.out.println(o);
+        Map k = Vectorizer.sortByValue(o);
+
+        System.out.println(Vectorizer.getStopWords(k, 25));
+
+
+
+//        System.out.println(Vectorizer.sortByValue(o));
+
 
 //        System.out.println(Arrays.asList(e.split("\\s+")));
 //        System.out.println(" (Astoria Fibra-Steel, Inc) for cash. 135 billion lire in 1987 from 113 billion".trim());
