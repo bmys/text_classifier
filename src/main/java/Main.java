@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +45,16 @@ public class Main {
         System.out.println(o);
         Map k = Vectorizer.sortByValue(o);
 
-        System.out.println(Vectorizer.getStopWords(k, 25));
+        List f = Vectorizer.getStopWords(k, 25);
+
+//        for(Object el : f){
+//            k.remove(el);
+//        }
+
+        k = Vectorizer.getWordFeatureVector(k, f);
+
+        System.out.println(k);
+
 
 
 

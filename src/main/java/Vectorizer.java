@@ -26,7 +26,7 @@ public class Vectorizer {
     }
 
 
-    public static Map sortByValue(Map<String, Integer> corpus)
+    public static Map<String, Integer> sortByValue(Map<String, Integer> corpus)
     {
 
         List<Map.Entry<String, Integer> > list = new LinkedList<>(corpus.entrySet());
@@ -43,12 +43,19 @@ public class Vectorizer {
         return temp;
     }
 
-    public static List getStopWords(Map<String, Integer> corpus, int percent){
+    public static List<String> getStopWords(Map<String, Integer> corpus, int percent){
 
         int index = Math.round(corpus.size() - corpus.size() * percent/100.0f);
 
-        List<Map.Entry<String, Integer> > list = new LinkedList<>(corpus.entrySet());
+        List<String> list = new LinkedList<>(corpus.keySet());
 
         return list.subList(index, list.size());
+    }
+
+    static Map getWordFeatureVector(Map<String,Integer> corpus, List<String> stopWords){
+        for(String word: stopWords){
+            corpus.remove(word);
+        }
+        return corpus;
     }
 }
