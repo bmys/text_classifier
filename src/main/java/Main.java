@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -51,9 +52,9 @@ public class Main {
 //            k.remove(el);
 //        }
 
-        k = Vectorizer.getWordFeatureVector(k, f);
-
-        System.out.println(k);
+        Map d = Vectorizer.getWordFeatureVector(k, f);
+        Map s = FeatureExtractor.countExtractor(vec1, new ArrayList<>(o.keySet()));
+        System.out.println(s);
 
 
 
