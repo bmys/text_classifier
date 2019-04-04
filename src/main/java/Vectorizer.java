@@ -47,6 +47,16 @@ public class Vectorizer {
         return list.subList(index, list.size());
     }
 
+    public static List<String> getMostCommonWords(Map<String, Integer> corpus, float percent){
+
+        int index = Math.round(corpus.size() - corpus.size() * percent/100.0f);
+
+        List<String> list = new LinkedList<>(corpus.keySet());
+
+//        Collections.reverse(list);
+        return list.subList(index, list.size());
+    }
+
     static Map getWordFeatureVector(Map<String,Integer> corpus, List<String> stopWords){
         for(String word: stopWords){
             corpus.remove(word);
