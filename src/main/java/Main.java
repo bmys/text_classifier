@@ -28,11 +28,13 @@ public class Main {
 //        }
 
 //        Vectorizer.sortByValue(corpus.getWordCounter());
+
         Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());
-        System.out.println(k);
+//        System.out.println(k);
         List<String> newStopWords = Vectorizer.getMostCommonWords(k , 0.5f);
-
-
-
+        System.out.println(newStopWords);
+        System.out.println(corpus.getDocument(5).getTokens());
+        corpus.removeStopWordsFromDocuments(newStopWords);
+        System.out.println(corpus.getDocument(5).getTokens());
     }
 }

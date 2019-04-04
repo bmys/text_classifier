@@ -30,4 +30,8 @@ public class Document {
     public Map<String, Double> getFeuters() {
         return feuters;
     }
+
+    public void removeTokens(List<String> tokensToRemove){
+        this.tokens.removeAll(tokensToRemove);
+    }
 }

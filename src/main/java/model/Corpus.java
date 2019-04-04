@@ -3,9 +3,9 @@ package model;
 import java.util.*;
 
 public class Corpus {
-    List<Document> documents;
-    Map<String, Integer> wordCounter;
-    Map<String, Integer> DocumentsWithWord;
+    private List<Document> documents;
+    private Map<String, Integer> wordCounter;
+    private Map<String, Integer> DocumentsWithWord;
 
     public Corpus() {
         this.documents = new ArrayList<>();
@@ -53,5 +53,11 @@ public class Corpus {
 
     public Map<String, Integer> getDocumentsWithWord() {
         return DocumentsWithWord;
+    }
+
+    public void removeStopWordsFromDocuments(List<String> stopWords){
+        for (Document document : this.documents) {
+            document.removeTokens(stopWords);
+        }
     }
 }
