@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class DataLoader {
 
-    public static Document loadSgml(String path) throws IOException {
+    static Document loadSgml(String path) throws IOException {
 
         File input = new File(path);
         Scanner s = new Scanner(input).useDelimiter("\\A");
@@ -46,12 +46,6 @@ public class DataLoader {
         return articles;
     }
 
-//    public static List<Article> filterArticles(List<Article> articles){
-//        List<String> locations = new ArrayList<>(Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan"));
-//        articles.removeIf(p -> p.getLocations().size() != 1 &&  locations.contains(p.getLocations().get(0)));
-//        return articles;
-//    }
-
     public static List<Article> filterArticles(List<Article> articles){
         List<String> locations = new ArrayList<>(Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan"));
         List<Article> filteredArticles = new ArrayList<Article>();
@@ -63,9 +57,6 @@ public class DataLoader {
                 filteredArticles.add(art);
             }
         }
-
         return filteredArticles;
     }
-
-
 }

@@ -4,7 +4,7 @@ public class Vectorizer {
 
     public static List<String> string2vec(String text){
 
-        return Arrays.asList(text.split("\\s+"));
+        return new ArrayList<>(Arrays.asList(text.split("\\s+")));
 
     }
 
