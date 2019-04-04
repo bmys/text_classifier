@@ -1,4 +1,4 @@
-import org.jsoup.Connection;
+import model.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -46,8 +46,7 @@ public class DataLoader {
         return articles;
     }
 
-    public static List<Article> filterArticles(List<Article> articles){
-        List<String> locations = new ArrayList<>(Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan"));
+    public static List<Article> filterArticlesByLocation(List<Article> articles, List<String> locations){
         List<Article> filteredArticles = new ArrayList<Article>();
 
         for(Article art: articles){

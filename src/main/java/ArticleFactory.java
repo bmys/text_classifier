@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import model.Article;
+
+
 public class ArticleFactory {
     public static List<Article> loadArticles(Document doc){
         List<Article> articles = new ArrayList<>();

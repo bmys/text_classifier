@@ -1,8 +1,10 @@
+import model.Article;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import ca.rmen.porterstemmer.PorterStemmer;
 
 
 public class Main {
@@ -10,13 +12,14 @@ public class Main {
         Document doc = DataLoader.loadSgml("/home/arch/IdeaProjects/ksr/resources/reut2-019.sgm");
         List<Article> articles = ArticleFactory.loadArticles(doc);
         System.out.println(articles.size());
-        articles = DataLoader.filterArticles(articles);
+        articles = DataLoader.filterArticlesByLocation(articles, new ArrayList<>(Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan")));
         System.out.println(articles.size());
 
         List<model.Document> documents = DocumentsFactory.documentsFromArticles(articles);
-        System.out.println(documents.get(0).getTokens());
-        PorterStemmer ps = new PorterStemmer();
 
-        System.out.println(ps.stemWord("fastest"));
+        for(model.Document dc: documents){
+            System.out.println(dc.getTokens());
+            System.out.println(dc.getLabels().get("locations"));
+        }
     }
 }

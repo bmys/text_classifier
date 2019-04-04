@@ -1,3 +1,4 @@
+import model.Article;
 import model.Document;
 
 import java.util.HashMap;
