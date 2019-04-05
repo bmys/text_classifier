@@ -2,6 +2,6 @@ package metrics;
 
 import java.util.List;
 
-public interface iMetric {
-    double getDistance(List a, List b);
+public interface iMetric<T> {
+    double getDistance(List<T> a, List<T> b);
 }
