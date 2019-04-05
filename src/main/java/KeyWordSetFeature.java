@@ -15,6 +15,8 @@ public class KeyWordSetFeature implements iFeatureExtractor {
         }
     }
 
+    public String getLabel() { return label; }
+
     @Override
     public Map.Entry<String, Double> getFeatureValue(List<String> text) {
         double acc = 0;
