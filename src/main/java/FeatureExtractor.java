@@ -1,5 +1,4 @@
 import model.Corpus;
-
 import java.util.*;
 
 public class FeatureExtractor {

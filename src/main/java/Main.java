@@ -1,6 +1,5 @@
 import model.Article;
 import model.Corpus;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.*;
@@ -9,55 +8,46 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
 //        Document doc = DataLoader.loadSgml("/home/arch/IdeaProjects/ksr/resources/reut2-019.sgm");
-        List<Article> articles =DataLoader.loadFromDir("/home/arch/IdeaProjects/ksr/resources/");
+        List<Article> articles = DataLoader.loadFromDir("/home/arch/IdeaProjects/ksr/resources/");
 //        List<Article> articles = ArticleFactory.loadArticles(doc);
-        System.out.println(articles.size());
-        articles = DataLoader.filterArticlesByLocation(articles, new ArrayList<>(Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan")));
-        System.out.println(articles.size());
+
+        List<String> locations = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
+
+        articles = DataLoader.filterArticlesByLocation(articles, locations);
 
         List<model.Document> documents = DocumentsFactory.documentsFromArticles(articles);
-        Corpus corpus = new Corpus();
 
-        for(model.Document dc: documents){
+        //      split data to training and test sets
+        int idx = Math.round(0.6f * documents.size());
+        List<model.Document> trainingData = documents.subList(0, idx);
+        List<model.Document> testData = documents.subList(idx, documents.size());
+
+        //      Add documents from training data to corpus
+        Corpus corpus = new Corpus();
+        for (model.Document dc : trainingData) {
             corpus.addDocument(dc);
         }
 
-
-//        for(Map.Entry<String, Integer> entry: corpus.getWordCounter().entrySet()){
-//            System.out.println(entry);
-//        }
-
-//        Vectorizer.sortByValue(corpus.getWordCounter());
-
+// create new stop list
         Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());
-//        System.out.println(k);
-        List<String> newStopWords = Vectorizer.getMostCommonWords(k , 0.5f);
+        List<String> newStopWords = Vectorizer.getMostCommonWords(k, 0.5f);
+//        remove custom words from created stop list
         newStopWords.remove("american");
-        System.out.println(newStopWords);
-        System.out.println(corpus.getDocument(15).getTokens());
+
+//        delete new stop words from documents in corpus
         corpus.removeStopWordsFromDocuments(newStopWords);
-        System.out.println(corpus.getDocument(15).getTokens());
 
-
-//        for(model.Document doc: corpus.getDocuemntsWithLabel("france")){
-//            System.out.println(doc.getTokens());
-//            System.out.println(doc.getLabels());
-//        }
-
-
-        System.out.println(corpus.getDocumentsWithWord());
-        System.out.println("___________________");
         corpus.generateIDFs();
-
-        System.out.println(corpus.getWordIDF());
 
         List<String> franceKeys = new LinkedList<>();
 
-        for(model.Document doc: corpus.getDocuemntsWithLabel("france")){
+        for (model.Document doc : corpus.getDocuemntsWithLabel("canada")) {
             franceKeys.addAll(doc.getTokens());
         }
 
-        System.out.println(FeatureExtractor.extractKeyWords(franceKeys, corpus));
-
+        System.out.println();
+        KeyWordSetFeature ks = new KeyWordSetFeature(FeatureExtractor.extractKeyWords(franceKeys, corpus), "dfdf");
+        System.out.println(ks.getFeatureValue(Arrays.asList("canada", "is", "mine", "ton", "feet")).getValue());
     }
 }
+
