@@ -32,9 +32,32 @@ public class Main {
         Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());
 //        System.out.println(k);
         List<String> newStopWords = Vectorizer.getMostCommonWords(k , 0.5f);
+        newStopWords.remove("american");
         System.out.println(newStopWords);
-        System.out.println(corpus.getDocument(5).getTokens());
+        System.out.println(corpus.getDocument(15).getTokens());
         corpus.removeStopWordsFromDocuments(newStopWords);
-        System.out.println(corpus.getDocument(5).getTokens());
+        System.out.println(corpus.getDocument(15).getTokens());
+
+
+//        for(model.Document doc: corpus.getDocuemntsWithLabel("france")){
+//            System.out.println(doc.getTokens());
+//            System.out.println(doc.getLabels());
+//        }
+
+
+        System.out.println(corpus.getDocumentsWithWord());
+        System.out.println("___________________");
+        corpus.generateIDFs();
+
+        System.out.println(corpus.getWordIDF());
+
+        List<String> franceKeys = new LinkedList<>();
+
+        for(model.Document doc: corpus.getDocuemntsWithLabel("france")){
+            franceKeys.addAll(doc.getTokens());
+        }
+
+        System.out.println(FeatureExtractor.extractKeyWords(franceKeys, corpus));
+
     }
 }

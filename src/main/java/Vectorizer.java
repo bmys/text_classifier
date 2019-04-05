@@ -38,6 +38,19 @@ public class Vectorizer {
         return temp;
     }
 
+    public static Map<String, Float> sortByValuef(Map<String, Float> corpus)
+    {
+        List<Map.Entry<String, Float> > list = new LinkedList<>(corpus.entrySet());
+        list.sort(Comparator.comparing(o -> (o.getValue())));
+
+        HashMap<String, Float> temp = new LinkedHashMap<>();
+
+        for (Map.Entry<String, Float> el : list) {
+            temp.put(el.getKey(), el.getValue());
+        }
+        return temp;
+    }
+
     public static List<String> getStopWords(Map<String, Integer> corpus, int percent){
 
         int index = Math.round(corpus.size() - corpus.size() * percent/100.0f);

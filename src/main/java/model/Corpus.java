@@ -6,6 +6,7 @@ public class Corpus {
     private List<Document> documents;
     private Map<String, Integer> wordCounter;
     private Map<String, Integer> DocumentsWithWord;
+    private Map<String, Float> wordIDF;
 
     public Corpus() {
         this.documents = new ArrayList<>();
@@ -55,9 +56,35 @@ public class Corpus {
         return DocumentsWithWord;
     }
 
+    public List<Document> getDocuemntsWithLabel(String label){
+        List<Document> docs = new LinkedList<>();
+        for(Document doc: this.documents){
+            if(doc.getLabels().get("locations").contains(label)){
+                docs.add(doc);
+            }
+        }
+        return docs;
+    }
+
+    public Map<String, Float> getWordIDF() {
+        return wordIDF;
+    }
+
     public void removeStopWordsFromDocuments(List<String> stopWords){
         for (Document document : this.documents) {
             document.removeTokens(stopWords);
         }
     }
+
+    public void generateIDFs(){
+        Map<String, Float> idfs = new HashMap<>();
+        int size = this.DocumentsWithWord.size();
+        for(Map.Entry<String, Integer> entry: this.DocumentsWithWord.entrySet() ){
+            if(entry.getValue() == 0) continue;
+            double k = Math.log((size * 1.0d) / (entry.getValue() * 1.0d));
+            idfs.put(entry.getKey(), (float)k);
+        }
+        this.wordIDF = idfs;
+    }
+
 }

@@ -1,3 +1,5 @@
+import model.Corpus;
+
 import java.util.*;
 
 public class FeatureExtractor {
@@ -73,6 +75,18 @@ public class FeatureExtractor {
         }
 
         return temp;
+    }
+
+    public static Map<String, Float> extractKeyWords(List<String> text, Corpus corpus ){
+//        create set
+        Set<String> wordsSet = new HashSet<>(text);
+        Map<String,Float> keywords = new HashMap<>();
+        for(String word: wordsSet){
+            float tf = (float)Collections.frequency(text, word) / (float)text.size();
+            float tfidf = tf * corpus.getWordIDF().get(word);
+            keywords.put(word, tfidf);
+        }
+        return Vectorizer.sortByValuef(keywords);
     }
 }
 
