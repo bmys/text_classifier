@@ -48,6 +48,10 @@ public class Corpus {
         return documents;
     }
 
+    public int getDocumentsCount(){
+        return this.documents.size();
+    }
+
     public Map<String, Integer> getWordCounter() {
         return wordCounter;
     }

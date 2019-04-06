@@ -4,9 +4,10 @@ import java.util.Map;
 
 public class KeyWordDenseFeature implements iFeatureExtractor{
     private List<String> keywords;
-
-    public KeyWordDenseFeature(List<String> keywords) {
+    private String label;
+    public KeyWordDenseFeature(List<String> keywords, String label) {
         this.keywords = keywords;
+        this.label = label;
     }
 
     @Override
@@ -15,6 +16,6 @@ public class KeyWordDenseFeature implements iFeatureExtractor{
         for(String keyword: keywords){
             counter += Collections.frequency(this.keywords, keyword);
         }
-        return new Entry<String, Double>("keyword_counter", Math.log(counter / text.size()));
+        return new Entry<String, Double>("keyword_counter_"+label, Math.log(counter / text.size()));
     }
 }

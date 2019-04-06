@@ -73,8 +73,8 @@ public class Main {
 //        KeyWordSetFeature ks = new KeyWordSetFeature(FeatureExtractor.extractKeyWords(franceKeys, corpus), "dfdf");
 
         for(KeyWordSetFeature fe: featureExtractors){
-            System.out.println(fe.getLabel());
-            System.out.println(fe.getFeatureValue(Arrays.asList("gold", "mine", "ton", "feet")).getValue());
+//            System.out.println(fe.getLabel());
+            System.out.println(fe.getFeatureValue(Arrays.asList("gold", "mine", "ton", "feet")).getKey());
         }
     }
 }
