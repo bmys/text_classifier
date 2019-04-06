@@ -6,6 +6,10 @@ public class Document {
     private Map<String, List<String>> labels;
     private Map<String, Double> features;
 
+    public void setFeature(Map.Entry<String, Double> feature) {
+        this.features.put(feature.getKey(), feature.getValue());
+    }
+
     public Document() {
         this.tokens = new ArrayList<>();
         this.labels = new HashMap<>();

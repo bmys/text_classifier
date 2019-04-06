@@ -1,5 +1,6 @@
 import model.Article;
 import model.Corpus;
+import model.Document;
 
 import java.io.IOException;
 import java.util.*;
@@ -31,7 +32,8 @@ public class Main {
             corpus.addDocument(dc);
         }
 
-
+        System.out.println("Ważne");
+        System.out.println(corpus.getDocument(5).getLabels());
 // create new stop list
         Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());
         List<String> newStopWords = Vectorizer.getMostCommonWords(k, 0.5f);
@@ -45,7 +47,7 @@ public class Main {
 
 
 
-        List<KeyWordSetFeature> featureExtractors = new LinkedList<>();
+        List<iFeatureExtractor> featureExtractors = new LinkedList<>();
         Map<String, List<String>> cuttedkeywords = new HashMap<>();
 
         for(String loc: locations){
@@ -72,9 +74,19 @@ public class Main {
 
 //        KeyWordSetFeature ks = new KeyWordSetFeature(FeatureExtractor.extractKeyWords(franceKeys, corpus), "dfdf");
 
-        for(KeyWordSetFeature fe: featureExtractors){
-//            System.out.println(fe.getLabel());
-            System.out.println(fe.getFeatureValue(Arrays.asList("gold", "mine", "ton", "feet")).getKey());
+//        good
+//        for(KeyWordSetFeature fe: featureExtractors){
+////            System.out.println(fe.getLabel());
+//            System.out.println(fe.getFeatureValue(Arrays.asList("gold", "mine", "ton", "feet")).getKey());
+//        }
+
+        Predictor pred = new Predictor(corpus, featureExtractors);
+
+        List<Document> germany = corpus.getDocuemntsWithLabel("japan");
+
+        for(int i =0; i<germany.size(); i++){
+            System.out.println("========");
+            pred.predict(germany.get(i), 5);
         }
     }
 }
