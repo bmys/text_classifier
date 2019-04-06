@@ -1,3 +1,5 @@
+import model.Document;
+
 import java.util.*;
 
 public class Vectorizer {
@@ -51,6 +53,19 @@ public class Vectorizer {
         return temp;
     }
 
+    public static Map<model.Document, Double> sortByValued(Map<model.Document, Double> corpus)
+    {
+        List<Map.Entry<model.Document, Double> > list = new LinkedList<>(corpus.entrySet());
+        list.sort(Comparator.comparing(o -> (o.getValue())));
+
+        HashMap<model.Document, Double> temp = new LinkedHashMap<>();
+
+        for (Map.Entry<model.Document, Double> el : list) {
+            temp.put(el.getKey(), el.getValue());
+        }
+        return temp;
+    }
+
     public static List<String> getStopWords(Map<String, Integer> corpus, int percent){
 
         int index = Math.round(corpus.size() - corpus.size() * percent/100.0f);
@@ -59,6 +74,7 @@ public class Vectorizer {
 
         return list.subList(index, list.size());
     }
+
 // usunieta z corpusu <String, int>
     public static List<String> getMostCommonWords(Map corpus, float percent){
 
