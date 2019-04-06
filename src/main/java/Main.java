@@ -46,13 +46,21 @@ public class Main {
 
 
         List<KeyWordSetFeature> featureExtractors = new LinkedList<>();
+        Map<String, List<String>> cuttedkeywords = new HashMap<>();
+
         for(String loc: locations){
             List<String> keys = new LinkedList<>();
 
             for (model.Document doc : corpus.getDocuemntsWithLabel(loc)) {
                 keys.addAll(doc.getTokens());
             }
-            KeyWordSetFeature ks = new KeyWordSetFeature(FeatureExtractor.extractKeyWords(keys, corpus), loc);
+            Map<String, Float> keywords = FeatureExtractor.extractKeyWords(keys, corpus);
+
+            List<String> cuttedKeyword = Vectorizer.getMostCommonWords(keywords, 5.0f);
+            cuttedkeywords.put(loc, cuttedKeyword);
+            System.out.println(cuttedKeyword);
+
+            KeyWordSetFeature ks = new KeyWordSetFeature(keywords, loc);
             featureExtractors.add(ks);
         }
 

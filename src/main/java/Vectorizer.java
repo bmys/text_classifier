@@ -59,8 +59,8 @@ public class Vectorizer {
 
         return list.subList(index, list.size());
     }
-
-    public static List<String> getMostCommonWords(Map<String, Integer> corpus, float percent){
+// usunieta z corpusu <String, int>
+    public static List<String> getMostCommonWords(Map corpus, float percent){
 
         int index = Math.round(corpus.size() - corpus.size() * percent/100.0f);
 
