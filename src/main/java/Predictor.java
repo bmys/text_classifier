@@ -20,6 +20,11 @@ public class Predictor {
     }
 
     public String predict(model.Document doc, int n){
+
+        for(iFeatureExtractor fex: this.featureExtractorList){
+            doc.setFeature(fex.getFeatureValue(doc.getTokens()));
+        }
+
         Knn knn = new Knn(n, new EuclideanMetric(), this.corpus);
         knn.predict(doc);
         return "xDD";

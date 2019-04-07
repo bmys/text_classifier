@@ -8,11 +8,12 @@ import java.util.stream.Stream;
 
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
 
         List<Article> articles = DataLoader.loadFromDir("/home/arch/IdeaProjects/ksr/resources/");
 
-        List<String> locations = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
+        List<String> locations = Arrays.asList("west-germany", "france", "uk", "canada", "japan");
 
         articles = DataLoader.filterArticlesByLocation(articles, locations);
 
@@ -26,14 +27,18 @@ public class Main {
         System.out.println(testData.size());
         //      Add documents from training data to corpus
         Corpus corpus = new Corpus();
+        Corpus testCorpus = new Corpus();
+
 //        trainingData.forEach(corpus::addDocument);
 
         for (model.Document dc : trainingData) {
             corpus.addDocument(dc);
         }
 
-        System.out.println("Ważne");
-        System.out.println(corpus.getDocument(5).getLabels());
+        for (model.Document dc : testData) {
+            testCorpus.addDocument(dc);
+        }
+
 // create new stop list
         Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());
         List<String> newStopWords = Vectorizer.getMostCommonWords(k, 0.5f);
@@ -43,7 +48,10 @@ public class Main {
 //        delete new stop words from documents in corpus
         corpus.removeStopWordsFromDocuments(newStopWords);
 
+        testCorpus.removeStopWordsFromDocuments(newStopWords);
+
         corpus.generateIDFs();
+        testCorpus.generateIDFs();
 
 
 
@@ -82,12 +90,23 @@ public class Main {
 
         Predictor pred = new Predictor(corpus, featureExtractors);
 
-        List<Document> germany = corpus.getDocuemntsWithLabel("japan");
+//        List<Document> germany = corpus.getDocuemntsWithLabel("japan");
 
-        for(int i =0; i<germany.size(); i++){
+//        for(model.Document doc: testCorpus.getDocuments()){
+//            for(iFeatureExtractor fex: featureExtractors){
+//                doc.setFeature(fex.getFeatureValue(doc.getTokens()));
+//            }
+//        }
+
+        for(int i =0; i<testCorpus.getDocuments().size()/3; i++){
             System.out.println("========");
-            pred.predict(germany.get(i), 5);
+            System.out.println(testCorpus.getDocument(i).getLabels());
+            System.out.println("========");
+            pred.predict(testCorpus.getDocument(i), 5);
         }
     }
 }
+
+
+
 
