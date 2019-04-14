@@ -13,7 +13,7 @@ public class Main {
 
         List<Article> articles = DataLoader.loadFromDir("/home/arch/IdeaProjects/ksr/resources/");
 
-        List<String> locations = Arrays.asList("west-germany", "france", "uk", "canada", "japan");
+        List<String> locations = Arrays.asList("west-germany", "france", "uk", "canada", "japan", "usa");
 
         articles = DataLoader.filterArticlesByLocation(articles, locations);
 
@@ -98,12 +98,22 @@ public class Main {
 //            }
 //        }
 
-        for(int i =0; i<testCorpus.getDocuments().size()/3; i++){
-            System.out.println("========");
-            System.out.println(testCorpus.getDocument(i).getLabels());
-            System.out.println("========");
-            pred.predict(testCorpus.getDocument(i), 5);
+        int correct = 0;
+
+        for(int i =0; i<testCorpus.getDocuments().size(); i++){
+//            System.out.println("========");
+//            System.out.println(testCorpus.getDocument(i).getLabels());
+//            System.out.println("========");
+            String out = pred.predict(testCorpus.getDocument(i), 5);
+            System.out.print(out + ' ');
+            System.out.println(testCorpus.getDocument(i).getLabels().get("locations").get(0));
+            if(out.equals(testCorpus.getDocument(i).getLabels().get("locations").get(0))){
+                correct++;
+            }
         }
+        System.out.println(correct);
+        System.out.println(testCorpus.getDocumentsCount());
+        System.out.println((float)correct / testCorpus.getDocumentsCount());
     }
 }
 

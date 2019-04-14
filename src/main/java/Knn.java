@@ -46,8 +46,20 @@ public class Knn {
         for(int i=0; i<k; i++){
             String word = predict.get(i).getKey().getLabels().get("locations").get(0);
             mostCommon.add(word);
-            System.out.println(word);
+//            System.out.println(mostCommon);
         }
+        String max = mostCommon.get(0);
+        int maxi = Collections.frequency(mostCommon, max);
+
+        for (String key : mostCommon) {
+            int curr = Collections.frequency(mostCommon, key);
+
+            if(maxi < curr){
+                maxi = curr;
+                max = key;
+            }
+        }
+//        System.out.println(max);
 //        System.out.print("max: ");
 //        Stream.of(mostCommon)
 //                .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
@@ -56,6 +68,6 @@ public class Knn {
 //                .max(Comparator.comparing(Map.Entry::getValue)).get(0);
 
 
-        return "xD";
+        return max;
     }
 }

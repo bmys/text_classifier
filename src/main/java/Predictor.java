@@ -26,7 +26,7 @@ public class Predictor {
         }
 
         Knn knn = new Knn(n, new EuclideanMetric(), this.corpus);
-        knn.predict(doc);
-        return "xDD";
+
+        return knn.predict(doc);
     }
 }
