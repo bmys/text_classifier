@@ -4,6 +4,8 @@ import org.jsoup.nodes.Document;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Knn {
     private int k;
@@ -39,10 +41,20 @@ public class Knn {
         distanceToDocuments = Vectorizer.sortByValued(distanceToDocuments);
 
         List<Map.Entry<model.Document, Double>> predict = new LinkedList(distanceToDocuments.entrySet());
+        List<String> mostCommon = new LinkedList<>();
 
         for(int i=0; i<k; i++){
-            System.out.println(predict.get(i).getKey().getLabels());
+            String word = predict.get(i).getKey().getLabels().get("locations").get(0);
+            mostCommon.add(word);
+            System.out.println(word);
         }
+//        System.out.print("max: ");
+//        Stream.of(mostCommon)
+//                .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
+//                .entrySet()
+//                .stream()
+//                .max(Comparator.comparing(Map.Entry::getValue)).get(0);
+
 
         return "xD";
     }
