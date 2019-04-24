@@ -1,3 +1,5 @@
+package dataLoading;
+
 import model.Article;
 import model.Document;
 

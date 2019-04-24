@@ -10,13 +10,13 @@
 //public class newMain {
 //    public static void main(String[] args) throws IOException {
 //
-//        List<Article> articles = DataLoader.loadFromDir("/home/arch/IdeaProjects/ksr/resources/");
+//        List<Article> articles = dataLoading.DataLoader.loadFromDir("/home/arch/IdeaProjects/ksr/resources/");
 //
 //        List<String> locations = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
 //
-//        articles = DataLoader.filterArticlesByLocation(articles, locations);
+//        articles = dataLoading.DataLoader.filterArticlesByLocation(articles, locations);
 //
-//        List<model.Document> documents = DocumentsFactory.documentsFromArticles(articles);
+//        List<model.Document> documents = dataLoading.DocumentsFactory.documentsFromArticles(articles);
 //
 //        //      split data to training and test sets
 //        int idx = Math.round(0.6f * documents.size());
@@ -39,8 +39,8 @@
 //        }
 //
 //// create new stop list
-//        Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());
-//        List<String> newStopWords = Vectorizer.getMostCommonWords(k, 0.5f);
+//        Map<String, Integer> k = dataLoading.Vectorizer.sortByValue(corpus.getWordCounter());
+//        List<String> newStopWords = dataLoading.Vectorizer.getMostCommonWords(k, 0.5f);
 ////        remove custom words from created stop list
 //        newStopWords.remove("american");
 //
@@ -54,7 +54,7 @@
 //
 //
 //
-//        List<iFeatureExtractor> featureExtractors = new LinkedList<>();
+//        List<FeatureExtractors.iFeatureExtractor> featureExtractors = new LinkedList<>();
 //        Map<String, List<String>> cuttedkeywords = new HashMap<>();
 //
 //        for(String loc: locations){
@@ -63,13 +63,13 @@
 //            for (model.Document doc : corpus.getDocuemntsWithLabel(loc)) {
 //                keys.addAll(doc.getTokens());
 //            }
-//            Map<String, Float> keywords = FeatureExtractor.extractKeyWords(keys, corpus);
+//            Map<String, Float> keywords = FeatureExtractors.FeatureExtractors.extractKeyWords(keys, corpus);
 //
-//            List<String> cuttedKeyword = Vectorizer.getMostCommonWords(keywords, 5.0f);
+//            List<String> cuttedKeyword = dataLoading.Vectorizer.getMostCommonWords(keywords, 5.0f);
 //            cuttedkeywords.put(loc, cuttedKeyword);
 //            System.out.println(cuttedKeyword);
 //
-//            KeyWordSetFeature ks = new KeyWordSetFeature(keywords, loc);
+//            FeatureExtractors.KeyWordSetFeature ks = new FeatureExtractors.KeyWordSetFeature(keywords, loc);
 //            featureExtractors.add(ks);
 //        }
 //
@@ -79,10 +79,10 @@
 ////            franceKeys.addAll(doc.getTokens());
 ////        }
 //
-////        KeyWordSetFeature ks = new KeyWordSetFeature(FeatureExtractor.extractKeyWords(franceKeys, corpus), "dfdf");
+////        FeatureExtractors.KeyWordSetFeature ks = new FeatureExtractors.KeyWordSetFeature(FeatureExtractors.FeatureExtractors.extractKeyWords(franceKeys, corpus), "dfdf");
 //
 ////        good
-////        for(KeyWordSetFeature fe: featureExtractors){
+////        for(FeatureExtractors.KeyWordSetFeature fe: featureExtractors){
 //////            System.out.println(fe.getLabel());
 ////            System.out.println(fe.getFeatureValue(Arrays.asList("gold", "mine", "ton", "feet")).getKey());
 ////        }

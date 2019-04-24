@@ -1,11 +1,8 @@
+import dataLoading.Vectorizer;
 import metrics.iMetric;
 import model.Corpus;
-import org.jsoup.nodes.Document;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Knn {
     private int k;
@@ -65,7 +62,7 @@ public class Knn {
 //                .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
 //                .entrySet()
 //                .stream()
-//                .max(Comparator.comparing(Map.Entry::getValue)).get(0);
+//                .max(Comparator.comparing(Map.model.Entry::getValue)).get(0);
 
 
         return max;

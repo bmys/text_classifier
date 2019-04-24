@@ -1,3 +1,7 @@
+package FeatureExtractors;
+
+import model.Entry;
+
 import java.util.List;
 import java.util.Map;
 

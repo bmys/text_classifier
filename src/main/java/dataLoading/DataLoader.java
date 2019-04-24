@@ -1,3 +1,5 @@
+package dataLoading;
+
 import model.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

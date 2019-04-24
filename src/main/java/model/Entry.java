@@ -1,6 +1,8 @@
+package model;
+
 import java.util.Map;
 
-final class Entry<K, V> implements Map.Entry<K, V> {
+final public class Entry<K, V> implements Map.Entry<K, V> {
     private final K key;
     private V value;
 

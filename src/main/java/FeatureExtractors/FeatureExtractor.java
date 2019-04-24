@@ -1,3 +1,6 @@
+package FeatureExtractors;
+
+import dataLoading.Vectorizer;
 import model.Corpus;
 import java.util.*;
 
@@ -85,6 +88,7 @@ public class FeatureExtractor {
             float tfidf = tf * corpus.getWordIDF().get(word);
             keywords.put(word, tfidf);
         }
+
         return Vectorizer.sortByValuef(keywords);
     }
 }

@@ -1,3 +1,5 @@
+package dataLoading;
+
 import model.Document;
 
 import java.util.*;

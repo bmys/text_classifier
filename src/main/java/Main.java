@@ -1,10 +1,14 @@
+import FeatureExtractors.FeatureExtractor;
+import FeatureExtractors.KeyWordSetFeature;
+import dataLoading.DataLoader;
+import dataLoading.DocumentsFactory;
+import dataLoading.Vectorizer;
 import model.Article;
 import model.Corpus;
-import model.Document;
+import FeatureExtractors.iFeatureExtractor;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Stream;
 
 
 public class Main {
@@ -80,10 +84,10 @@ public class Main {
 //            franceKeys.addAll(doc.getTokens());
 //        }
 
-//        KeyWordSetFeature ks = new KeyWordSetFeature(FeatureExtractor.extractKeyWords(franceKeys, corpus), "dfdf");
+//        FeatureExtractors.KeyWordSetFeature ks = new FeatureExtractors.KeyWordSetFeature(FeatureExtractors.FeatureExtractors.extractKeyWords(franceKeys, corpus), "dfdf");
 
 //        good
-//        for(KeyWordSetFeature fe: featureExtractors){
+//        for(FeatureExtractors.KeyWordSetFeature fe: featureExtractors){
 ////            System.out.println(fe.getLabel());
 //            System.out.println(fe.getFeatureValue(Arrays.asList("gold", "mine", "ton", "feet")).getKey());
 //        }
@@ -93,7 +97,7 @@ public class Main {
 //        List<Document> germany = corpus.getDocuemntsWithLabel("japan");
 
 //        for(model.Document doc: testCorpus.getDocuments()){
-//            for(iFeatureExtractor fex: featureExtractors){
+//            for(FeatureExtractors.iFeatureExtractor fex: featureExtractors){
 //                doc.setFeature(fex.getFeatureValue(doc.getTokens()));
 //            }
 //        }
