@@ -33,8 +33,6 @@ public class Main {
         Corpus corpus = new Corpus();
         Corpus testCorpus = new Corpus();
 
-//        trainingData.forEach(corpus::addDocument);
-
         for (model.Document dc : trainingData) {
             corpus.addDocument(dc);
         }
@@ -61,10 +59,10 @@ public class Main {
 
         List<iFeatureExtractor> featureExtractors = new LinkedList<>();
         Map<String, List<String>> cuttedkeywords = new HashMap<>();
-
+// Dla kazdej lokacji
         for(String loc: locations){
             List<String> keys = new LinkedList<>();
-
+// Dla dokumentu z dana etykieta lokacji
             for (model.Document doc : corpus.getDocuemntsWithLabel(loc)) {
                 keys.addAll(doc.getTokens());
             }
