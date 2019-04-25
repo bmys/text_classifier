@@ -22,6 +22,6 @@ public class KeyWordCounterFeature implements iFeatureExtractor {
         for(String keyword: keywords){
             counter += Collections.frequency(this.keywords, keyword);
         }
-        return new Entry<String, Double>("keyword_counter_" + label, Math.log(counter));
+        return new Entry<>("keyword_counter_" + label, Math.log(counter));
     }
 }
