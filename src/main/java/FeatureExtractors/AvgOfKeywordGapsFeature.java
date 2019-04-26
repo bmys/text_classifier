@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class SumOfKeywordGapsFeature implements iFeatureExtractor {
+public class AvgOfKeywordGapsFeature implements iFeatureExtractor {
     private Set keywords;
-    public SumOfKeywordGapsFeature( Set keywords) {
+    public AvgOfKeywordGapsFeature(Set keywords) {
         this.keywords = keywords;
     }
 
@@ -19,17 +19,19 @@ public class SumOfKeywordGapsFeature implements iFeatureExtractor {
         int gapSum = 0;
         int counter = 0;
         double div = 1;
+        double total = 0;
 
         for(String word: text){
             if(keywords.contains(word)){
                 gapSum += counter;
                 counter = 0;
+                total += 1.0;
             }
             else{
                 counter += 1;
             }
         }
         gapSum += counter;
-        return new Entry<>("SumOfKeywordGapsFeature", (double)gapSum);
+        return new Entry<>("AvgOfKeywordGapsFeature", (double)gapSum / total);
     }
 }
