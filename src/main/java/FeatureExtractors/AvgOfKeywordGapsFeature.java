@@ -19,7 +19,7 @@ public class AvgOfKeywordGapsFeature implements iFeatureExtractor {
         int gapSum = 0;
         int counter = 0;
         double div = 1;
-        double total = 0;
+        double total = 1;
 
         for(String word: text){
             if(keywords.contains(word)){
