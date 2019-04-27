@@ -21,6 +21,6 @@ public class LengthFeature implements iFeatureExtractor{
 
     @Override
     public Map.Entry<String, Double> getFeatureValue(List<String> text) {
-        return new Entry<>("leng", Math.log(text.size() / this.avgLeng));
+        return new Entry<>("leng", Math.log(1 + (text.size() / this.avgLeng)));
     }
 }

@@ -53,29 +53,33 @@ public class Main {
         testCorpus.generateIDFs();
 
 
-
+//        System.out.println("Ameryka: " + testCorpus.getDocuemntsWithLabel("usa").size());
 
         List<iFeatureExtractor> featureExtractors = new LinkedList<>();
         Map<String, List<String>> cuttedkeywords = new HashMap<>();
 
-//// Dla kazdej lokacji
-//        for(String loc: locations){
-//            List<String> keys = new LinkedList<>();
-//// Dla dokumentu z dana etykieta lokacji
-//            for (model.Document doc : corpus.getDocuemntsWithLabel(loc)) {
-//                keys.addAll(doc.getTokens());
-//            }
-//            Map<String, Float> keywords = FeatureExtractor.extractKeyWords(keys, corpus);
-//
-////            List<String> cuttedKeyword = Vectorizer.getMostCommonWords(keywords, 5.0f);
-////            cuttedkeywords.put(loc, cuttedKeyword);
-////            System.out.println(cuttedKeyword);
-//
-//            KeyWordSetFeature ks = new KeyWordSetFeature(keywords, loc);
-//            featureExtractors.add(ks);
-//        }
+// Dla kazdej lokacji
+        for(String loc: locations){
+            List<String> keys = new LinkedList<>();
+// Dla dokumentu z dana etykieta lokacji
+            for (model.Document doc : corpus.getDocuemntsWithLabel(loc)) {
+                keys.addAll(doc.getTokens());
+            }
+            Map<String, Float> keywords = FeatureExtractor.extractKeyWords(keys, corpus);
+
+//            List<String> cuttedKeyword = Vectorizer.getMostCommonWords(keywords, 5.0f);
+//            cuttedkeywords.put(loc, cuttedKeyword);
+//            System.out.println(cuttedKeyword);
+
+            KeyWordSetFeature ks = new KeyWordSetFeature(keywords, loc);
+//            KeyWordDenseFeature ks2 = new KeyWordDenseFeature(new ArrayList<>(keywords.keySet()), loc);
+            System.out.println("pass");
+            featureExtractors.add(ks);
+//            featureExtractors.add(ks2);
+        }
 
         featureExtractors.add(new RepeatedWordFeature());
+        featureExtractors.add(new LengthFeature(corpus));
 
 
 //        List<String> franceKeys = new LinkedList<>();
@@ -91,8 +95,8 @@ public class Main {
 
         for(int i =0; i<testCorpus.getDocuments().size(); i++){
             String out = pred.predict(testCorpus.getDocument(i), 5);
-//            System.out.print(out + ' ');
-//            System.out.println(testCorpus.getDocument(i).getLabels().get("locations").get(0));
+            System.out.print(out + ' ');
+            System.out.println(testCorpus.getDocument(i).getLabels().get("locations").get(0));
             if(out.equals(testCorpus.getDocument(i).getLabels().get("locations").get(0))){
                 correct++;
             }
