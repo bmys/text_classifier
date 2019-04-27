@@ -1,11 +1,10 @@
-import FeatureExtractors.FeatureExtractor;
-import FeatureExtractors.KeyWordSetFeature;
+import FeatureExtractors.*;
 import dataLoading.DataLoader;
 import dataLoading.DocumentsFactory;
 import dataLoading.Vectorizer;
+import metrics.EuclideanMetric;
 import model.Article;
 import model.Corpus;
-import FeatureExtractors.iFeatureExtractor;
 
 import java.io.IOException;
 import java.util.*;
@@ -28,7 +27,7 @@ public class Main {
         List<model.Document> trainingData = documents.subList(0, idx);
         List<model.Document> testData = documents.subList(idx, documents.size());
 
-        System.out.println(testData.size());
+        System.out.println("Size: " + testData.size());
         //      Add documents from training data to corpus
         Corpus corpus = new Corpus();
         Corpus testCorpus = new Corpus();
@@ -44,8 +43,6 @@ public class Main {
 // create new stop list
         Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());
         List<String> newStopWords = Vectorizer.getMostCommonWords(k, 0.5f);
-//        remove custom words from created stop list
-        newStopWords.remove("american");
 
 //        delete new stop words from documents in corpus
         corpus.removeStopWordsFromDocuments(newStopWords);
@@ -57,24 +54,29 @@ public class Main {
 
 
 
+
         List<iFeatureExtractor> featureExtractors = new LinkedList<>();
         Map<String, List<String>> cuttedkeywords = new HashMap<>();
-// Dla kazdej lokacji
-        for(String loc: locations){
-            List<String> keys = new LinkedList<>();
-// Dla dokumentu z dana etykieta lokacji
-            for (model.Document doc : corpus.getDocuemntsWithLabel(loc)) {
-                keys.addAll(doc.getTokens());
-            }
-            Map<String, Float> keywords = FeatureExtractor.extractKeyWords(keys, corpus);
 
-            List<String> cuttedKeyword = Vectorizer.getMostCommonWords(keywords, 5.0f);
-            cuttedkeywords.put(loc, cuttedKeyword);
-            System.out.println(cuttedKeyword);
+//// Dla kazdej lokacji
+//        for(String loc: locations){
+//            List<String> keys = new LinkedList<>();
+//// Dla dokumentu z dana etykieta lokacji
+//            for (model.Document doc : corpus.getDocuemntsWithLabel(loc)) {
+//                keys.addAll(doc.getTokens());
+//            }
+//            Map<String, Float> keywords = FeatureExtractor.extractKeyWords(keys, corpus);
+//
+////            List<String> cuttedKeyword = Vectorizer.getMostCommonWords(keywords, 5.0f);
+////            cuttedkeywords.put(loc, cuttedKeyword);
+////            System.out.println(cuttedKeyword);
+//
+//            KeyWordSetFeature ks = new KeyWordSetFeature(keywords, loc);
+//            featureExtractors.add(ks);
+//        }
 
-            KeyWordSetFeature ks = new KeyWordSetFeature(keywords, loc);
-            featureExtractors.add(ks);
-        }
+        featureExtractors.add(new RepeatedWordFeature());
+
 
 //        List<String> franceKeys = new LinkedList<>();
 //
@@ -82,33 +84,15 @@ public class Main {
 //            franceKeys.addAll(doc.getTokens());
 //        }
 
-//        FeatureExtractors.KeyWordSetFeature ks = new FeatureExtractors.KeyWordSetFeature(FeatureExtractors.FeatureExtractors.extractKeyWords(franceKeys, corpus), "dfdf");
 
-//        good
-//        for(FeatureExtractors.KeyWordSetFeature fe: featureExtractors){
-////            System.out.println(fe.getLabel());
-//            System.out.println(fe.getFeatureValue(Arrays.asList("gold", "mine", "ton", "feet")).getKey());
-//        }
-
-        Predictor pred = new Predictor(corpus, featureExtractors);
-
-//        List<Document> germany = corpus.getDocuemntsWithLabel("japan");
-
-//        for(model.Document doc: testCorpus.getDocuments()){
-//            for(FeatureExtractors.iFeatureExtractor fex: featureExtractors){
-//                doc.setFeature(fex.getFeatureValue(doc.getTokens()));
-//            }
-//        }
+        Predictor pred = new Predictor(corpus, featureExtractors, new EuclideanMetric());
 
         int correct = 0;
 
         for(int i =0; i<testCorpus.getDocuments().size(); i++){
-//            System.out.println("========");
-//            System.out.println(testCorpus.getDocument(i).getLabels());
-//            System.out.println("========");
             String out = pred.predict(testCorpus.getDocument(i), 5);
-            System.out.print(out + ' ');
-            System.out.println(testCorpus.getDocument(i).getLabels().get("locations").get(0));
+//            System.out.print(out + ' ');
+//            System.out.println(testCorpus.getDocument(i).getLabels().get("locations").get(0));
             if(out.equals(testCorpus.getDocument(i).getLabels().get("locations").get(0))){
                 correct++;
             }

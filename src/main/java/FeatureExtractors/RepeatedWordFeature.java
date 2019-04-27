@@ -15,6 +15,6 @@ public class RepeatedWordFeature implements iFeatureExtractor{
                 occurrences++;
             }
         }
-        return new Entry<>("RepeatedWordFeature", occurrences * 1.0d);
+        return new Entry<>("RepeatedWordFeature", Math.log(1 + occurrences * 1.0d));
     }
 }
