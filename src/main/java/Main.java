@@ -18,7 +18,7 @@ public class Main {
 
         List<String> locations = Arrays.asList("west-germany", "france", "uk", "canada", "japan", "usa");
 
-        articles = DataLoader.filterArticlesByLocation(articles, locations);
+        articles = DataLoader.filterLocation(articles, locations);
 
         List<model.Document> documents = DocumentsFactory.documentsFromArticles(articles);
 
@@ -28,17 +28,14 @@ public class Main {
         List<model.Document> testData = documents.subList(idx, documents.size());
 
         System.out.println("Size: " + testData.size());
+
         //      Add documents from training data to corpus
         Corpus corpus = new Corpus();
+        trainingData.forEach(corpus);
+
         Corpus testCorpus = new Corpus();
+        testData.forEach(testCorpus);
 
-        for (model.Document dc : trainingData) {
-            corpus.addDocument(dc);
-        }
-
-        for (model.Document dc : testData) {
-            testCorpus.addDocument(dc);
-        }
 
 // create new stop list
         Map<String, Integer> k = Vectorizer.sortByValue(corpus.getWordCounter());

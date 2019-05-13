@@ -1,8 +1,9 @@
 package model;
 
 import java.util.*;
+import java.util.function.Consumer;
 
-public class Corpus {
+public class Corpus implements Consumer<Document>{
     private List<Document> documents;
     private Map<String, Integer> wordCounter;
     private Map<String, Integer> DocumentsWithWord;
@@ -91,4 +92,8 @@ public class Corpus {
         this.wordIDF = idfs;
     }
 
+    @Override
+    public void accept(Document document) {
+        addDocument(document);
+    }
 }

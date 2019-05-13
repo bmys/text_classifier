@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DataLoader {
 
@@ -28,12 +29,7 @@ public class DataLoader {
 
         File dir = new File(path);
 
-        File [] files = dir.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".sgm");
-            }
-        });
+        File [] files = dir.listFiles((dir1, name) -> name.endsWith(".sgm"));
 
         assert files != null;
 
@@ -48,8 +44,8 @@ public class DataLoader {
         return articles;
     }
 
-    public static List<Article> filterArticlesByLocation(List<Article> articles, List<String> locations){
-        List<Article> filteredArticles = new ArrayList<Article>();
+    public static List<Article> filterLocation(List<Article> articles, List<String> locations){
+        List<Article> filteredArticles = new ArrayList<>();
 
         for(Article art: articles){
             List loc = art.getLocations();
@@ -60,4 +56,11 @@ public class DataLoader {
         }
         return filteredArticles;
     }
+
+//    public static List<Article> filterLocation(List<Article> articles, List<String> locations){
+//        return articles.stream()
+//                .filter(art -> art.getLocations().size() == 1)
+//                .filter(art -> art.getLocations().stream().allMatch(loc -> locations.contains(loc)))
+//                .collect(Collectors.toList());
+//    }
 }
