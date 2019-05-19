@@ -1,15 +1,19 @@
+import static Utility.Preprocessing.removeNonLetterChars;
+import static Utility.Preprocessing.removeStopWords;
+import static Utility.Preprocessing.stemWords;
+import static Utility.Preprocessing.toLowerCase;
+import static Utility.Preprocessing.tokenize;
+
 import Model.Corpus;
 import Model.Document;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static Utility.Preprocessing.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class TestPreprocessing {
+
     @Test
     public void removeNonLetterCharsTest() {
         String before = "Hello! this is 1 test. o_0 l0l";
@@ -41,8 +45,9 @@ public class TestPreprocessing {
 
         tokenize(corpus);
 
-        Assert.assertEquals(Arrays.asList("coffee", "machine", "not", "working"),
-                corpus.getDocuments().get(0).getTokens());
+        Assert.assertEquals(
+            Arrays.asList("coffee", "machine", "not", "working"),
+            corpus.getDocuments().get(0).getTokens());
     }
 
     @Test
@@ -56,16 +61,15 @@ public class TestPreprocessing {
 
         toLowerCase(corpus);
 
-        Assert.assertTrue("the best algorithm 12 !".equals(
-                corpus.getDocuments().get(0).getRawText()));
+        Assert.assertTrue(
+            "the best algorithm 12 !".equals(corpus.getDocuments().get(0).getRawText()));
     }
-
 
     @Test
     public void removeStopWordsTest() {
 
-        List<String> stopWords = new ArrayList<>(
-                Arrays.asList("i", "am", "the", "best", "also", "machine", "to"));
+        List<String> stopWords =
+            new ArrayList<>(Arrays.asList("i", "am", "the", "best", "also", "machine", "to"));
 
         String before = "hello i am the best washing machine programmer";
         Document doc = new Document();
@@ -83,9 +87,11 @@ public class TestPreprocessing {
 
         removeStopWords(corpus, stopWords);
 
-        Assert.assertTrue(Arrays.asList("hello", "washing", "programmer")
+        Assert.assertTrue(
+            Arrays.asList("hello", "washing", "programmer")
                 .equals(corpus.getDocuments().get(0).getTokens()));
-        Assert.assertTrue(Arrays.asList("can", "code", "coffee", "connected", "internet")
+        Assert.assertTrue(
+            Arrays.asList("can", "code", "coffee", "connected", "internet")
                 .equals(corpus.getDocuments().get(1).getTokens()));
     }
 
@@ -108,10 +114,12 @@ public class TestPreprocessing {
 
         stemWords(corpus);
 
-        Assert.assertTrue(Arrays.asList("work", "sometim", "studi")
+        Assert.assertTrue(
+            Arrays.asList("work", "sometim", "studi")
                 .equals(corpus.getDocuments().get(0).getTokens()));
 
-        Assert.assertEquals(Arrays.asList("word", "matter", "monei", "teach")
-                , corpus.getDocuments().get(1).getTokens());
+        Assert.assertEquals(
+            Arrays.asList("word", "matter", "monei", "teach"),
+            corpus.getDocuments().get(1).getTokens());
     }
 }

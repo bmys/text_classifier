@@ -2,7 +2,6 @@ package Utility.DataLoader;
 
 import com.google.common.io.Closer;
 import com.google.common.io.Resources;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;

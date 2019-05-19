@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Document {
+
     private HashMap<String, ArrayList> labels = new HashMap<>();
     private String rawText = "";
     private ArrayList<String> tokens = new ArrayList<>();
@@ -38,11 +39,11 @@ public class Document {
         return tokens;
     }
 
-    public void setTokens(String[] tokens) {
-        this.tokens.addAll(Arrays.asList(tokens));
-    }
-
     public void setTokens(ArrayList<String> tokens) {
         this.tokens = tokens;
+    }
+
+    public void setTokens(String[] tokens) {
+        this.tokens.addAll(Arrays.asList(tokens));
     }
 }

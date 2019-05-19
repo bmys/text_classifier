@@ -1,11 +1,10 @@
 package Utility;
 
+import static Utility.DataLoader.LoadFromPlaneText.loadFromResource;
+
 import Model.Corpus;
 import ca.rmen.porterstemmer.PorterStemmer;
-
 import java.util.List;
-
-import static Utility.DataLoader.LoadFromPlaneText.loadFromResource;
 
 public class Preprocessing {
 
@@ -16,12 +15,12 @@ public class Preprocessing {
 
         List<String> basicStopWords = loadFromResource("stopwords");
         removeStopWords(corpus, basicStopWords);
+
+        stemWords(corpus);
     }
 
     public static void removeNonLetterChars(Corpus corpus) {
-        corpus.forEach(f -> f.setRawText(f.getRawText()
-                .replaceAll("[^A-Za-z]+", " ")
-                .trim()));
+        corpus.forEach(f -> f.setRawText(f.getRawText().replaceAll("[^A-Za-z]+", " ").trim()));
     }
 
     public static void toLowerCase(Corpus corpus) {
