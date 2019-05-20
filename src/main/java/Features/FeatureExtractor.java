@@ -1,8 +1,9 @@
 package Features;
 
 import Model.Document;
+import java.util.Map.Entry;
 
-public interface FeatureExtractor {
+public interface FeatureExtractor<T> {
 
-    Feature extract(Document document);
+  Entry<String, T> extract(Document document);
 }
