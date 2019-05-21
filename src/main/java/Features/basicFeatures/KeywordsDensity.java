@@ -6,11 +6,11 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class keywordsDensity implements FeatureExtractor<Double> {
+public class KeywordsDensity implements FeatureExtractor<Double> {
 
   private List<String> keywords;
 
-  public keywordsDensity(List<String> keywords) {
+  public KeywordsDensity(List<String> keywords) {
     this.keywords = keywords;
   }
 
@@ -22,7 +22,7 @@ public class keywordsDensity implements FeatureExtractor<Double> {
     // gęstość, ilość słów kluczowych do ilości wszystkich słów
     double denisity = keywordCount / document.getTokens().size();
 
-    String name = "keywordsDensity";
+    String name = "KeywordsDensity";
     return new SimpleEntry<>(name, denisity);
   }
 }

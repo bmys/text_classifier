@@ -10,7 +10,7 @@ public class LengthFeature implements FeatureExtractor<Double> {
   @Override
   public Entry<String, Double> extract(Document document) {
 
-    String name = "keywordsDensity";
+    String name = "LengthFeature";
     return new SimpleEntry<>(name, (double) document.getTokens().size());
   }
 }
