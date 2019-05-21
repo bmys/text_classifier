@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Document {
+public class Document implements Cloneable {
 
   private HashMap<String, ArrayList<String>> labels = new HashMap<>();
   private String rawText = "";
@@ -24,6 +24,10 @@ public class Document {
     this.rawText = rawText;
     this.tokens = tokens;
   }
+  // TODO: clone method
+//  public Object clone() throws
+//
+//  }
 
   public HashMap<String, ArrayList<String>> getLabels() {
     return labels;
@@ -67,5 +71,13 @@ public class Document {
 
   public ImmutableMap<String, String> getStringFeatures() {
     return ImmutableMap.copyOf(stringFeatures);
+  }
+
+  public void setNumericFeatures(Map<String, Double> numericFeatures) {
+    this.numericFeatures = numericFeatures;
+  }
+
+  public void setStringFeatures(Map<String, String> stringFeatures) {
+    this.stringFeatures = stringFeatures;
   }
 }

@@ -7,7 +7,7 @@ import Model.Document;
 import Utility.FixedTreeMap;
 import metrics.Metric;
 
-public class KNN {
+public class KNN implements Classifier<String, Document> {
 
   private Corpus corpus;
   private Metric metric;
@@ -24,11 +24,11 @@ public class KNN {
   public String classify(Document doc) {
     FixedTreeMap<Document> fixedTreeMap = new FixedTreeMap<>(k, false);
 
-    for (Document corpusDoc : corpus.getDocuments()) {
-      double distance = metric.getDistance(doc, corpusDoc);
-      fixedTreeMap.put(distance, corpusDoc);
+    for (Document docInCorpus : corpus.getDocuments()) {
+      double distance = metric.getDistance(doc, docInCorpus);
+      fixedTreeMap.put(distance, docInCorpus);
     }
-
+    // Idea: change this to strategy pattern. (Conflict resolver)
     return getMostCommonLabel(fixedTreeMap, predictedLabel);
   }
 }
