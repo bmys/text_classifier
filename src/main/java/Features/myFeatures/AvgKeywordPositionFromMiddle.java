@@ -17,6 +17,14 @@ public class AvgKeywordPositionFromMiddle implements FeatureExtractor<Double> {
 
   @Override
   public Entry<String, Double> extract(Document document) {
+    String name = "AvgKeywordPositionFromMiddle";
+
+    // czy ma jakiekolwiek słowo kluczowe jak nie zwróć zero
+
+    if (keyWordSet.stream().noneMatch(document.getTokens()::contains)) {
+      return new SimpleEntry<>(name, 0.0);
+    }
+
     int position = 0;
     int keywordCount = 0;
     int i = 1;
@@ -30,7 +38,6 @@ public class AvgKeywordPositionFromMiddle implements FeatureExtractor<Double> {
       ++i;
     }
 
-    String name = "AvgKeywordPositionFromMiddle";
     double result = (double) position / (double) keywordCount;
 
     return new SimpleEntry<>(name, result);
