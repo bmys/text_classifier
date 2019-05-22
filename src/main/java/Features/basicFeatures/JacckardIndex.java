@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 public class JacckardIndex implements FeatureExtractor<Double> {
 
-  HashSet<String> keyWordSet;
+  private HashSet<String> keyWordSet;
 
   public JacckardIndex(List<String> keywords) {
     this.keyWordSet = new HashSet<>(keyWordSet);
