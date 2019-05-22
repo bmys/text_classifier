@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 public class FirstSentenceFeature implements FeatureExtractor<String> {
 
-  int kFirstWords;
+  private int kFirstWords;
 
   public FirstSentenceFeature(int kFirstWords) {
     this.kFirstWords = kFirstWords;
