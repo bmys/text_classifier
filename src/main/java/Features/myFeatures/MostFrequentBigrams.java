@@ -33,8 +33,6 @@ public class MostFrequentBigrams implements FeatureExtractor<String> {
       bigrams.add(result.substring(i, i + 2));
     }
 
-//    FixedTreeMap<String> mostCommonBigrams = new FixedTreeMap<>(count, true);
-
     MinMaxPriorityQueue<Pair<Double, String>> mostCommonBigrams =
         MinMaxPriorityQueue.orderedBy(pairComparatorAsc)
             .maximumSize(count)
@@ -44,9 +42,6 @@ public class MostFrequentBigrams implements FeatureExtractor<String> {
       double count = (double) Collections.frequency(bigrams, bigram);
       mostCommonBigrams.add(new Pair<>(count, bigram));
     }
-
-    // check if sorted?
-//    String bigramscat = StringUtils.join(mostCommonBigrams.values(), "");
 
     String bigramscat = StringUtils.join(mostCommonBigrams.stream().map(Pair::getValue).collect(
         Collectors.toList()), "");
