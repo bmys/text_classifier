@@ -2,16 +2,29 @@ package Features.myFeatures;
 
 import Features.FeatureExtractor;
 import Model.Document;
-import Utility.FixedTreeMap;
+import com.google.common.collect.MinMaxPriorityQueue;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import javafx.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 
 public class MostFrequentBigrams implements FeatureExtractor<String> {
+
+  public static Comparator<Pair<Double, String>> pairComparatorDesc =
+      Comparator.comparing(Pair::getKey);
+  public static Comparator<Pair<Double, String>> pairComparatorAsc =
+      (doubleTPair, t1) -> t1.getKey().compareTo(doubleTPair.getKey());
+  int count;
+
+  public MostFrequentBigrams(int count) {
+    this.count = count;
+  }
 
   @Override
   public Entry<String, String> extract(Document document) {
@@ -19,19 +32,27 @@ public class MostFrequentBigrams implements FeatureExtractor<String> {
 
     List<String> bigrams = new LinkedList<>();
 
-    for (int i = 0; i < result.length() - 2; i++) {
-      bigrams.add(result.substring(i, i + 1));
+    for (int i = 0; i < result.length() - 1; i++) {
+      bigrams.add(result.substring(i, i + 2));
     }
 
-    FixedTreeMap<String> mostCommonBigrams = new FixedTreeMap<>(5, true);
+//    FixedTreeMap<String> mostCommonBigrams = new FixedTreeMap<>(count, true);
+
+    MinMaxPriorityQueue<Pair<Double, String>> mostCommonBigrams =
+        MinMaxPriorityQueue.orderedBy(pairComparatorAsc)
+            .maximumSize(count)
+            .create();
 
     for (String bigram : new HashSet<>(bigrams)) {
       double count = (double) Collections.frequency(bigrams, bigram);
-      mostCommonBigrams.put(count, bigram);
+      mostCommonBigrams.add(new Pair<>(count, bigram));
     }
 
     // check if sorted?
-    String bigramscat = StringUtils.join(mostCommonBigrams.values(), "");
+//    String bigramscat = StringUtils.join(mostCommonBigrams.values(), "");
+
+    String bigramscat = StringUtils.join(mostCommonBigrams.stream().map(Pair::getValue).collect(
+        Collectors.toList()), "");
 
     String name = "MostFrequentBigrams";
     return new SimpleEntry<>(name, bigramscat);
