@@ -1,11 +1,12 @@
 package Features.myFeatures;
 
+import static Utility.CollectionUtil.pairComparatorAsc;
+
 import Features.FeatureExtractor;
 import Model.Document;
 import com.google.common.collect.MinMaxPriorityQueue;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +17,6 @@ import org.apache.commons.lang3.StringUtils;
 
 public class MostFrequentBigrams implements FeatureExtractor<String> {
 
-  public static Comparator<Pair<Double, String>> pairComparatorDesc =
-      Comparator.comparing(Pair::getKey);
-  public static Comparator<Pair<Double, String>> pairComparatorAsc =
-      (doubleTPair, t1) -> t1.getKey().compareTo(doubleTPair.getKey());
   int count;
 
   public MostFrequentBigrams(int count) {

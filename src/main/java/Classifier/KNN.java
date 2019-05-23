@@ -1,10 +1,14 @@
 package Classifier;
 
-import static Utility.CollectionUtil.getMostCommonLabel;
+import static Utility.CollectionUtil.documentPairComparatorAsc;
+import static Utility.CollectionUtil.mostCommonElement;
 
 import Model.Corpus;
 import Model.Document;
-import Utility.FixedTreeMap;
+import com.google.common.collect.MinMaxPriorityQueue;
+import java.util.List;
+import java.util.stream.Collectors;
+import javafx.util.Pair;
 import metrics.Metric;
 
 public class KNN implements Classifier<String, Document> {
@@ -22,13 +26,24 @@ public class KNN implements Classifier<String, Document> {
   }
 
   public String classify(Document doc) {
-    FixedTreeMap<Document> fixedTreeMap = new FixedTreeMap<>(k, false);
+
+    MinMaxPriorityQueue<Pair<Double, Document>> closestDocuments =
+        MinMaxPriorityQueue.orderedBy(documentPairComparatorAsc)
+            .maximumSize(k)
+            .create();
 
     for (Document docInCorpus : corpus.getDocuments()) {
       double distance = metric.getDistance(doc, docInCorpus);
-      fixedTreeMap.put(distance, docInCorpus);
+      closestDocuments.add(new Pair<>(distance, docInCorpus));
     }
+
     // Idea: change this to strategy pattern. (Conflict resolver)
-    return getMostCommonLabel(fixedTreeMap, predictedLabel);
+
+    List<String> bestMatches = closestDocuments
+        .stream()
+        .map(o -> o.getValue().getLabels().get(predictedLabel).get(0))
+        .collect(Collectors.toList());
+
+    return mostCommonElement(bestMatches);
   }
 }

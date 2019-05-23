@@ -28,7 +28,7 @@ public class QuarterKeywordOccurenceRatio implements FeatureExtractor<Double> {
 
     double counter = firstQuarter + fourthQuarter;
     double denominator = secondQuarter + thirdQuarter;
-    String name = "MostFrequentBigrams";
+    String name = "QuarterKeywordOccurenceRatio";
 
     if (denominator == 0 || counter == 0) {
       return new SimpleEntry<>(name, 0.0);

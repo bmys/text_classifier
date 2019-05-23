@@ -1,8 +1,11 @@
 package Utility;
 
 import Model.Document;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.util.Pair;
 
@@ -22,6 +25,10 @@ public class CollectionUtil {
             Collectors.groupingBy(o -> o.getLabels().get(label).get(0), Collectors.counting()));
   }
 
+  public static Comparator<Pair<Double, String>> pairComparatorDesc =
+      Comparator.comparing(Pair::getKey);
+
+
   public static String getMostCommonLabel(Map<Double, Document> documents, String label) {
     Map.Entry<Double, Document> mostCommonLabel = documents.entrySet()
         .stream()
@@ -31,5 +38,25 @@ public class CollectionUtil {
       return "";
     }
     return mostCommonLabel.getValue().getLabels().get(label).get(0);
+  }
+
+  // TODO: create this generic
+  public static Comparator<Pair<Double, String>> pairComparatorAsc =
+      (doubleTPair, t1) -> t1.getKey().compareTo(doubleTPair.getKey());
+  public static Comparator<Pair<Double, Document>> documentPairComparatorAsc =
+      (doubleTPair, t1) -> t1.getKey().compareTo(doubleTPair.getKey());
+
+  public static String mostCommonElement(List<String> list) {
+    Optional<Entry<String, Long>> k = list.stream()
+        .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
+        .entrySet()
+        .stream()
+        .max(Comparator.comparing(Entry::getValue));
+
+    if (k.isPresent()) {
+      return k.get().getKey();
+    } else {
+      return null;
+    }
   }
 }

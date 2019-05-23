@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -53,8 +54,8 @@ public class Document implements Cloneable {
     this.tokens.addAll(Arrays.asList(tokens));
   }
 
-  public void setTokens(ArrayList<String> tokens) {
-    this.tokens = tokens;
+  public void setTokens(List<String> tokens) {
+    this.tokens = new ArrayList<>(tokens);
   }
 
   void setNumericFeature(Entry<String, Double> feature) {
