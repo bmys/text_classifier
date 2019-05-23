@@ -15,7 +15,7 @@ public class ExtractKeywords {
     return null;
   }
 
-  public Map<String, Double> termFequency(List<String> document) {
+  public static Map<String, Double> termFequency(List<String> document) {
     Map<String, Double> tf = new HashMap<>();
 
     double totalTermCount = (double) document.size();
@@ -27,7 +27,7 @@ public class ExtractKeywords {
     return tf;
   }
 
-  public Map<String, Double> inverseDocumentFrequency(List<List<String>> corpus) {
+  public static Map<String, Double> inverseDocumentFrequency(List<List<String>> corpus) {
 
     double documentsCount = (double) corpus.size();
     Map<String, Integer> freq = new HashMap<>();
@@ -40,6 +40,7 @@ public class ExtractKeywords {
 
     return freq.entrySet().stream()
         .collect(
-            Collectors.toMap(Entry::getKey, o -> Math.log(documentsCount / (double) o.getValue())));
+            Collectors
+                .toMap(Entry::getKey, o -> Math.log10(documentsCount / (double) o.getValue())));
   }
 }
