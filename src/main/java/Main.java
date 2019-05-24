@@ -1,6 +1,8 @@
 import static Utility.CollectionUtil.splitListByPercent;
 import static Utility.ExtractKeywords.extractKeywords;
 
+import Classifier.KNN;
+import Classifier.Predictor;
 import Features.myFeatures.AvgKeywordPositionFromMiddle;
 import Model.Corpus;
 import Model.Document;
@@ -11,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.util.Pair;
+import metrics.EuclideanMetric;
 
 public class Main {
 
@@ -26,7 +29,9 @@ public class Main {
 
       Pair<List<Document>, List<Document>> twoSets = splitListByPercent(documents, 40);
 
-      Corpus corpus = new Corpus(twoSets.getKey(), "allData");
+      Corpus corpus = new Corpus(twoSets.getKey(), "train");
+      Corpus testCorpus = new Corpus(twoSets.getValue(), "test");
+
       Preprocessing.basicPreprocessing(corpus);
       List<List<String>> k = corpus.stream().map(Document::getTokens).collect(Collectors.toList());
       // TODO: genrate IDFs for whole corpus
@@ -35,8 +40,11 @@ public class Main {
       AvgKeywordPositionFromMiddle avg = new AvgKeywordPositionFromMiddle(keywords);
       corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
 
-//      KNN knn = new KNN();
-//      Predictor predictor = new Predictor();
+      KNN knn = new KNN(corpus, new EuclideanMetric(), 5, "locations");
+      Predictor predictor = new Predictor(knn, "locations");
+
+      boolean m = predictor.predict(testCorpus.getDocuments().get(0));
+      System.out.println(m);
 
       int w = 5;
     } catch (IOException e) {

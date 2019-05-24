@@ -44,4 +44,8 @@ public class KNN implements Classifier<String, Document> {
 
     return mostCommonElement(bestMatches);
   }
+
+  public void add(Document doc) {
+    corpus.add(doc);
+  }
 }
