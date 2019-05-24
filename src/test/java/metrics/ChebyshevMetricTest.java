@@ -8,8 +8,8 @@ import org.junit.Test;
 
 public class ChebyshevMetricTest {
 
-  Document doc1 = new Document();
-  Document doc2 = new Document();
+  private Document doc1 = new Document();
+  private Document doc2 = new Document();
 
   @Before
   public void initialize() {

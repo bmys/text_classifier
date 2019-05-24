@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EuclideanMetricTest {
+public class TaxiCabMetricTest {
 
   private Document doc1 = new Document();
   private Document doc2 = new Document();
@@ -32,9 +32,9 @@ public class EuclideanMetricTest {
 
   @Test
   public void getDistance() {
-    EuclideanMetric euclideanMetric = new EuclideanMetric();
-    double distance = euclideanMetric.getDistance(doc1, doc2);
-    Assert.assertEquals(1.118034, distance, 0.0001);
+    TaxiCabMetric taxiCabMetric = new TaxiCabMetric();
+    double distance = taxiCabMetric.getDistance(doc1, doc2);
+    Assert.assertEquals(1.5, distance, 0.0001);
 
     doc1.setNumericFeatures(
         new HashMap<String, Double>() {
@@ -54,7 +54,7 @@ public class EuclideanMetricTest {
           }
         });
 
-    distance = euclideanMetric.getDistance(doc1, doc2);
-    Assert.assertEquals(4.153312, distance, 0.0001);
+    distance = taxiCabMetric.getDistance(doc1, doc2);
+    Assert.assertEquals(5.5, distance, 0.0001);
   }
 }
