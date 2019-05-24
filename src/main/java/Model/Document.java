@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 public class Document implements Cloneable {
 
-  private HashMap<String, ArrayList<String>> labels = new HashMap<>();
+  private HashMap<String, List<String>> labels = new HashMap<>();
   private String rawText = "";
   private ArrayList<String> tokens = new ArrayList<>();
   private Map<String, Double> numericFeatures = new HashMap<>();
@@ -19,7 +19,7 @@ public class Document implements Cloneable {
   public Document() {
   }
 
-  public Document(HashMap<String, ArrayList<String>> labels, String rawText,
+  public Document(HashMap<String, List<String>> labels, String rawText,
       ArrayList<String> tokens) {
     this.labels = labels;
     this.rawText = rawText;
@@ -30,12 +30,16 @@ public class Document implements Cloneable {
 //
 //  }
 
-  public HashMap<String, ArrayList<String>> getLabels() {
+  public HashMap<String, List<String>> getLabels() {
     return labels;
   }
 
-  public void setLabels(HashMap<String, ArrayList<String>> labels) {
+  public void setLabels(HashMap<String, List<String>> labels) {
     this.labels = labels;
+  }
+
+  public void setLabels(String name, List<String> labels) {
+    this.labels.put(name, labels);
   }
 
   public String getRawText() {

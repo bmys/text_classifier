@@ -1,6 +1,5 @@
 package Utility.DataLoader;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +22,8 @@ public class LoadSGML {
     return Jsoup.parse(result);
   }
 
-  public static List<Model.Document> loadFromDir(String path) throws IOException {
+  public static List<Model.Document> loadFromDir(String path, List<String> locs)
+      throws IOException {
     List<Model.Document> articles = new ArrayList<>();
 
     File dir = new File(path);
@@ -36,19 +36,19 @@ public class LoadSGML {
 
     for (File file : files) {
       Document doc = loadSgml(file.toString());
-      List<Model.Document> articlesFromDoc = loadArticlesWithLocation(doc);
+      List<Model.Document> articlesFromDoc = loadArticlesWithLocation(doc, locs);
       System.out.println(articlesFromDoc.size());
       articles.addAll(articlesFromDoc);
     }
     return articles;
   }
 
-  public static List<Model.Document> filterLocation(List<Model.Document> articles,
-      List<String> locations) {
+  public static List<Model.Document> filterLocation(
+      List<Model.Document> articles, List<String> locations) {
     List<Model.Document> filteredArticles = new ArrayList<>();
 
     for (Model.Document art : articles) {
-      List loc = art.getLabels().get("locations");
+      List<String> loc = art.getLabels().get("locations");
 
       if (loc.size() == 1 && locations.contains(loc.get(0))) {
         filteredArticles.add(art);
@@ -57,19 +57,25 @@ public class LoadSGML {
     return filteredArticles;
   }
 
-  public static List<Model.Document> loadArticlesWithLocation(Document doc) {
+  public static List<Model.Document> loadArticlesWithLocation(Document doc, List<String> locs) {
     List<Model.Document> articles = new ArrayList<>();
 
     Elements reuters = doc.select("REUTERS");
 
     for (Element elem : reuters) {
-      String title = elem.select("TITLE").text();
-      String text = elem.select("INNER").text();
-
       String places = elem.select("PLACES > D").text();
       List<String> placesList = new ArrayList<>(Arrays.asList(places.split("\\s+")));
 
+      if (placesList.size() != 1 || !locs.contains(placesList.get(0))) {
+        continue;
+      }
+
+      //      String title = elem.select("TITLE").text();
+      String text = elem.select("INNER").text();
+
       Model.Document art = new Model.Document();
+      art.setRawText(text);
+      art.setLabels("locations", placesList);
       articles.add(art);
     }
     return articles;
