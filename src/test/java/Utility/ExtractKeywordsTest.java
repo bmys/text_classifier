@@ -9,12 +9,13 @@ import org.junit.Test;
 public class ExtractKeywordsTest {
 
   List<String> doc1 = Arrays.asList("this", "a", "is", "a", "sample");
-  List<String> doc2 = Arrays
-      .asList("this", "is", "another", "another", "example", "example", "example");
+  List<String> doc2 =
+      Arrays.asList("this", "is", "another", "another", "example", "example", "example");
 
   @Test
   public void extractKeywords() {
-
+    List<String> twoBestKeyword = ExtractKeywords.extractKeywords(Arrays.asList(doc1, doc2), 2);
+    Assert.assertEquals(Arrays.asList("example", "a"), twoBestKeyword);
   }
 
   @Test
@@ -29,8 +30,8 @@ public class ExtractKeywordsTest {
 
   @Test
   public void inverseDocumentFrequency() {
-    Map<String, Double> result = ExtractKeywords
-        .inverseDocumentFrequency(Arrays.asList(doc1, doc2));
+    Map<String, Double> result =
+        ExtractKeywords.inverseDocumentFrequency(Arrays.asList(doc1, doc2));
     Assert.assertEquals(0.0, result.get("this"), 0.001);
     Assert.assertEquals(0.301, Math.log10(2.0), 0.001);
     Assert.assertEquals(0.301, result.get("example"), 0.001);
