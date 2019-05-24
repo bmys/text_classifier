@@ -19,10 +19,10 @@ public class ExtractKeywordsTest {
 
   @Test
   public void termFrequency() {
-    Map<String, Double> result = ExtractKeywords.termFequency(doc1);
+    Map<String, Double> result = ExtractKeywords.termFrequency(doc1);
     Assert.assertEquals(0.2, result.get("this"), 0.1);
 
-    result = ExtractKeywords.termFequency(doc2);
+    result = ExtractKeywords.termFrequency(doc2);
     Assert.assertEquals(0.14, result.get("is"), 0.1);
     Assert.assertEquals(0.429, result.get("example"), 0.001);
   }
@@ -33,6 +33,6 @@ public class ExtractKeywordsTest {
         .inverseDocumentFrequency(Arrays.asList(doc1, doc2));
     Assert.assertEquals(0.0, result.get("this"), 0.001);
     Assert.assertEquals(0.301, Math.log10(2.0), 0.001);
-//    Assert.assertEquals(0.301, result.get("example"), 0.001);
+    Assert.assertEquals(0.301, result.get("example"), 0.001);
   }
 }

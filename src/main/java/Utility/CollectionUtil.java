@@ -43,8 +43,13 @@ public class CollectionUtil {
   // TODO: create this generic
   public static Comparator<Pair<Double, String>> pairComparatorAsc =
       (doubleTPair, t1) -> t1.getKey().compareTo(doubleTPair.getKey());
+
   public static Comparator<Pair<Double, Document>> documentPairComparatorAsc =
       (doubleTPair, t1) -> t1.getKey().compareTo(doubleTPair.getKey());
+
+  // TODO: test it
+  public static Comparator<Map.Entry<String, Double>> pairComparatorAscValue =
+      (doubleTPair, t1) -> t1.getValue().compareTo(doubleTPair.getValue());
 
   public static String mostCommonElement(List<String> list) {
     Optional<Entry<String, Long>> k = list.stream()
