@@ -28,9 +28,7 @@ public class KNN implements Classifier<String, Document> {
   public String classify(Document doc) {
 
     MinMaxPriorityQueue<Pair<Double, Document>> closestDocuments =
-        MinMaxPriorityQueue.orderedBy(documentPairComparatorAsc)
-            .maximumSize(k)
-            .create();
+        MinMaxPriorityQueue.orderedBy(documentPairComparatorAsc).maximumSize(k).create();
 
     for (Document docInCorpus : corpus.getDocuments()) {
       double distance = metric.getDistance(doc, docInCorpus);
@@ -39,10 +37,10 @@ public class KNN implements Classifier<String, Document> {
 
     // Idea: change this to strategy pattern. (Conflict resolver)
 
-    List<String> bestMatches = closestDocuments
-        .stream()
-        .map(o -> o.getValue().getLabels().get(predictedLabel).get(0))
-        .collect(Collectors.toList());
+    List<String> bestMatches =
+        closestDocuments.stream()
+            .map(o -> o.getValue().getLabels().get(predictedLabel).get(0))
+            .collect(Collectors.toList());
 
     return mostCommonElement(bestMatches);
   }
