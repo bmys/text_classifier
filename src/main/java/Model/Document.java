@@ -62,11 +62,11 @@ public class Document implements Cloneable {
     this.tokens = new ArrayList<>(tokens);
   }
 
-  void setNumericFeature(Entry<String, Double> feature) {
+  public void setNumericFeature(Entry<String, Double> feature) {
     numericFeatures.put(feature.getKey(), feature.getValue());
   }
 
-  void setStringFeature(Entry<String, String> feature) {
+  public void setStringFeature(Entry<String, String> feature) {
     stringFeatures.put(feature.getKey(), feature.getValue());
   }
 

@@ -51,6 +51,9 @@ public class CollectionUtil {
   public static Comparator<Map.Entry<String, Double>> pairComparatorAscValue =
       (doubleTPair, t1) -> t1.getValue().compareTo(doubleTPair.getValue());
 
+  public static Comparator<Map.Entry<String, Double>> pairComparatorDescValue =
+      (doubleTPair, t1) -> doubleTPair.getValue().compareTo(t1.getValue());
+
   public static String mostCommonElement(List<String> list) {
     Optional<Entry<String, Long>> k = list.stream()
         .collect(Collectors.groupingBy(s -> s, Collectors.counting()))

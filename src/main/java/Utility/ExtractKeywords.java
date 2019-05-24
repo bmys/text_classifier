@@ -26,6 +26,9 @@ public class ExtractKeywords {
         keywords.merge(token, tfidf, Double::sum);
       }
     }
+// check this
+//    Map<String, Double> s = keywords.entrySet().stream().filter(o -> o.getValue() > 0.4).collect(Collectors.toMap(
+//        Entry::getKey, Entry::getValue));
 
     MinMaxPriorityQueue<Map.Entry<String, Double>> bestKeywords =
         MinMaxPriorityQueue.orderedBy(pairComparatorAscValue)

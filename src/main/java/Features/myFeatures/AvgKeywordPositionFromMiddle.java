@@ -12,7 +12,7 @@ public class AvgKeywordPositionFromMiddle implements FeatureExtractor<Double> {
   private HashSet<String> keyWordSet;
 
   public AvgKeywordPositionFromMiddle(List<String> keywords) {
-    this.keyWordSet = new HashSet<>(keyWordSet);
+    this.keyWordSet = new HashSet<>(keywords);
   }
 
   @Override
