@@ -69,10 +69,21 @@ Najliczniejsza etykieta sposród K elementów o najmniejszym wyniku metryki decy
 
 W naszym rozwiązaniu problemu klasyfikacji zbioru artykułów prasowych ze zbioru „reuters 21578” względem ich etykiet lokalizacji zaimplementowaliśmy następujące ekstraktory cech:
 \subsubsection{Ekstraktory cech}
+\begin{enumerate}
+  \item Średnia pozycja słów kluczowych od środka dokumentu.
 
-Algorytm ten wyznacza odległości w n-wymiarowej przestrzeni do wszystkich obiektów w zbiorze uczącym za pomocą jednej z metryk. A następnie wybiera k obiektów o najmniejszym dystansie od klasyfikowanego obiektu i za pomocą głosowania wyłania najczęściej występująca etykietę.
+  \item Pierwsze słowo w dokumencie
+  \item Ważona pozycja słowa kluczowego w dokumencie
+   \item Najczęściej występujące dwuliterowe podciągi w dokumencie
+reprezentowane jako słowo zbudowane z tych podciągów według liczności ich występowania.
 
-Metryki.
+  \item Stosunek ilości słów kluczowych występujących w pierwszej i czwartej ćwiartce słów w dokumencie do ilości słów kluczowych występujących w drugiej i trzeciej ćwiartce słów w dokumencie  
+\end{enumerate}
+
+
+
+
+\subsubsection{Metryki}
 W celu oceny podobieństwa wektorów cech użyliśmy następujących metryk:
 
 Metryka Euklidesowa:
@@ -84,11 +95,6 @@ $$\max _{i}|x_{i}-y_{i}|$$
 
 Metryka taksówkowa:
 $$\sum _{i=1}^{n}|x_{i}-y_{i}|$$
-
-oraz własnej metryki: 
-$$\frac{\sum(x{_{ai}}-x{_{bi}})^{(n+1)-|\left \{ x{_{ai}} \epsilon X1,x{_{bi}} \epsilon X2 : (x{_{ai}}-x{_{bi}}) > 0.3 \right \}|}}{n}$$
-n - ilość cech\newline
-x - wartosć cechy\newline
 
 
 \begin{tabular}{|c|c|c|}
