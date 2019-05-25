@@ -23,7 +23,8 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Hello World!");
 
-    List<String> locations = Arrays.asList("japan", "west-germany", "canada");
+    List<String> locations = Arrays
+        .asList("japan", "west-germany", "canada", "usa", "france", "uk");
 
     try {
       // Data loading
@@ -31,7 +32,7 @@ public class Main {
           .loadFromDir("/home/arch/IdeaProjects/text_classifier_new/src/main/resources/reuters",
               locations);
 
-      Pair<List<Document>, List<Document>> twoSets = splitListByPercent(documents, 40);
+      Pair<List<Document>, List<Document>> twoSets = splitListByPercent(documents, 60);
 
       // Split to sets
       Corpus corpus = new Corpus(twoSets.getKey(), "train");
@@ -59,7 +60,7 @@ public class Main {
       Corpus knnCorpus = getNElements(100,
           corpus,
           "locations",
-          Arrays.asList("japan", "west-germany", "canada"));
+          Arrays.asList("japan", "west-germany", "canada", "usa", "france", "uk"));
 
       KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 2, "locations");
       Predictor predictor = new Predictor(knn, "locations");
@@ -92,7 +93,17 @@ public class Main {
 
       System.out.println("cecha testowy skończone");
 
-      testCorpus.forEach(predictor::predict);
+      System.out.println("Zaczynam klasyfikacje");
+      System.out.println("Rozmiar zbioru testowego: " + testCorpus.size());
+
+      int i = 1;
+      for (Document doc : testCorpus) {
+        System.out.println(i + " / " + testCorpus.size());
+        predictor.predict(doc);
+        i++;
+      }
+
+//      testCorpus.forEach(predictor::predict);
 
       System.out.println(predictor.getResults());
 
