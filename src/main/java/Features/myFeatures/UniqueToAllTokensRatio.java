@@ -10,8 +10,8 @@ public class UniqueToAllTokensRatio implements FeatureExtractor<Double> {
 
   private HashSet<String> keyWordSet;
 
-  public UniqueToAllTokensRatio(HashSet<String> keyWordSet) {
-    this.keyWordSet = keyWordSet;
+  public UniqueToAllTokensRatio() {
+
   }
 
   @Override
