@@ -1,6 +1,7 @@
 import static Utility.CollectionUtil.splitListByPercent;
 import static Utility.ExtractKeywords.extractKeywords;
 import static Utility.getNelementsFromCorpusWithLabel.getNElements;
+import static Utility.toLatex.mapToLatex;
 
 import Classifier.KNN;
 import Classifier.Predictor;
@@ -50,7 +51,8 @@ public class Main {
 
       // Features
       AvgKeywordPositionFromMiddle avg = new AvgKeywordPositionFromMiddle(keywords);
-      FirstSentenceFeature firstSentenceFeature = new FirstSentenceFeature(5);
+
+      FirstSentenceFeature firstSentenceFeature = new FirstSentenceFeature(1);
 
       MostFrequentBigrams bigrams = new MostFrequentBigrams(5);
 
@@ -65,31 +67,16 @@ public class Main {
       KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 2, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
-//      boolean m = predictor.predict(testCorpus.getDocuments().get(0));
-//      System.out.println(m);
-//      m = predictor.predict(testCorpus.getDocuments().get(1));
-//      System.out.println(m);
-//      m = predictor.predict(testCorpus.getDocuments().get(2));
-//      System.out.println(m);
-//      m = predictor.predict(testCorpus.getDocuments().get(3));
-//      System.out.println(m);
-//      m = predictor.predict(testCorpus.getDocuments().get(4));
-//      System.out.println(m);
-//      testCorpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
+      // First Sentence
+//
+//      corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
+//      testCorpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
 
+//      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
 //      testCorpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
 
-      // Calculate features
-//      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
-
-      // First Sentence
-      /*
-      corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
-      testCorpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
-      */
-
-      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
-      testCorpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
+      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
+      testCorpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
 
       System.out.println("cecha testowy skończone");
 
@@ -106,6 +93,8 @@ public class Main {
 //      testCorpus.forEach(predictor::predict);
 
       System.out.println(predictor.getResults());
+
+      System.out.println(mapToLatex(predictor.getResults(), "bla"));
 
     } catch (IOException e) {
       e.printStackTrace();
