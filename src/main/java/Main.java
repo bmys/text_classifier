@@ -1,5 +1,6 @@
 import static Utility.CollectionUtil.splitListByPercent;
-import static Utility.ExtractKeywords.extractKeywords;
+import static Utility.ExtractKeywords.extractKeywordsIDF;
+import static Utility.ExtractKeywords.inverseDocumentFrequency;
 import static Utility.getNelementsFromCorpusWithLabel.getNElements;
 import static Utility.toLatex.mapToLatex;
 
@@ -13,8 +14,11 @@ import Model.Document;
 import Utility.DataLoader.LoadSGML;
 import Utility.Preprocessing;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.util.Pair;
 import metrics.EuclideanMetric;
@@ -45,9 +49,30 @@ public class Main {
       System.out.println("Preprocessing skończony");
 
       // Keywords generation
-      List<List<String>> k = corpus.stream().map(Document::getTokens).collect(Collectors.toList());
-      // TODO: genrate IDFs for whole corpus
-      List<String> keywords = extractKeywords(k, 15);
+      List<String> keywords = new ArrayList<>();
+
+      // IDF for all labels
+      Map<String, Double> idf = inverseDocumentFrequency(
+          corpus.stream().map(Document::getTokens).collect(
+              Collectors.toList()));
+
+      for (String location : locations) {
+        List<List<String>> k = corpus
+            .stream()
+            .filter(o -> o.getLabels().get("locations").get(0).equals(location))
+            .map(Document::getTokens)
+            .collect(Collectors.toList());
+
+        List<String> keywordsIDF = extractKeywordsIDF(k, idf, 15);
+        keywords.addAll(keywordsIDF);
+      }
+      keywords.remove("");
+      keywords = new ArrayList<String>(new HashSet<>(keywords));
+      System.out.println("Słowa kluczowe: ");
+      System.out.println(keywords);
+
+//      List<String> keywords = extractKeywords(k, 15);
+
 
       // Features
       AvgKeywordPositionFromMiddle avg = new AvgKeywordPositionFromMiddle(keywords);

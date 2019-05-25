@@ -40,6 +40,31 @@ public class ExtractKeywords {
     return bestKeywords.stream().map(Entry::getKey).collect(Collectors.toList());
   }
 
+  public static List<String> extractKeywordsIDF(List<List<String>> corpus, Map<String, Double> IDF,
+      int count) {
+    // todo: test
+    Map<String, Double> idf = IDF;
+    Map<String, Double> keywords = new HashMap<>();
+
+    for (List<String> document : corpus) {
+      Map<String, Double> tf = termFrequency(document);
+
+      for (String token : tf.keySet()) {
+        double tfidf = tf.get(token) * idf.get(token);
+        keywords.merge(token, tfidf, Double::sum);
+      }
+    }
+
+    MinMaxPriorityQueue<Map.Entry<String, Double>> bestKeywords =
+        MinMaxPriorityQueue.orderedBy(pairComparatorAscValue)
+            .maximumSize(count)
+            .create();
+
+    bestKeywords.addAll(keywords.entrySet());
+
+    return bestKeywords.stream().map(Entry::getKey).collect(Collectors.toList());
+  }
+
   public static Map<String, Double> termFrequency(List<String> document) {
     Map<String, Double> tf = new HashMap<>();
 

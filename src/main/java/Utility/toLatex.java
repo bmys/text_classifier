@@ -17,7 +17,7 @@ public class toLatex {
     stringBuilder.append("\\hline\n");
     StringJoiner joiner1 = new StringJoiner(" & ");
 
-    joiner1.add(" ╳ ");
+    joiner1.add(" X ");
     for (String location : locations) {
       joiner1.add(location);
     }
