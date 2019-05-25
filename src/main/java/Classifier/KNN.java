@@ -1,6 +1,6 @@
 package Classifier;
 
-import static Utility.CollectionUtil.documentPairComparatorAsc;
+import static Utility.CollectionUtil.documentPairComparatorDesc;
 import static Utility.CollectionUtil.mostCommonElement;
 
 import Model.Corpus;
@@ -28,7 +28,7 @@ public class KNN implements Classifier<String, Document> {
   public String classify(Document doc) {
 
     MinMaxPriorityQueue<Pair<Double, Document>> closestDocuments =
-        MinMaxPriorityQueue.orderedBy(documentPairComparatorAsc).maximumSize(k).create();
+        MinMaxPriorityQueue.orderedBy(documentPairComparatorDesc).maximumSize(k).create();
 
     for (Document docInCorpus : corpus.getDocuments()) {
       double distance = metric.getDistance(doc, docInCorpus);

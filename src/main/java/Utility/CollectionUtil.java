@@ -47,6 +47,9 @@ public class CollectionUtil {
   public static Comparator<Pair<Double, Document>> documentPairComparatorAsc =
       (doubleTPair, t1) -> t1.getKey().compareTo(doubleTPair.getKey());
 
+  public static Comparator<Pair<Double, Document>> documentPairComparatorDesc =
+      (doubleTPair, t1) -> doubleTPair.getKey().compareTo(t1.getKey());
+
   // TODO: test it
   public static Comparator<Map.Entry<String, Double>> pairComparatorAscValue =
       (doubleTPair, t1) -> t1.getValue().compareTo(doubleTPair.getValue());

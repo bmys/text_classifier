@@ -4,6 +4,7 @@ import static Utility.ExtractKeywords.extractKeywords;
 import Classifier.KNN;
 import Classifier.Predictor;
 import Features.myFeatures.AvgKeywordPositionFromMiddle;
+import Features.myFeatures.FirstSentenceFeature;
 import Features.myFeatures.MostFrequentBigrams;
 import Model.Corpus;
 import Model.Document;
@@ -21,7 +22,7 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Hello World!");
 
-    List<String> locations = Arrays.asList("japan", "west-germany", "canada");
+    List<String> locations = Arrays.asList("japan", "west-germany");
 
     try {
       // Data loading
@@ -30,6 +31,7 @@ public class Main {
               locations);
 
       Pair<List<Document>, List<Document>> twoSets = splitListByPercent(documents, 40);
+
       // Split to sets
       Corpus corpus = new Corpus(twoSets.getKey(), "train");
       Corpus testCorpus = new Corpus(twoSets.getValue(), "test");
@@ -46,13 +48,13 @@ public class Main {
 
       // Features
       AvgKeywordPositionFromMiddle avg = new AvgKeywordPositionFromMiddle(keywords);
+      FirstSentenceFeature firstSentenceFeature = new FirstSentenceFeature(3);
 
       MostFrequentBigrams bigrams = new MostFrequentBigrams(5);
 
-//      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
-      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
+//      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
       System.out.println("Ustalanie cechy skończone");
-      KNN knn = new KNN(corpus, new EuclideanMetric(), 3, "locations");
+      KNN knn = new KNN(corpus, new EuclideanMetric(), 2, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
 //      boolean m = predictor.predict(testCorpus.getDocuments().get(0));
@@ -67,9 +69,24 @@ public class Main {
 //      System.out.println(m);
 //      testCorpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
 
+//      testCorpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
+
+      // Calculate features
+//      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
+
+      // First Sentence
+      /*
+      corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
+      testCorpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
+      */
+
+      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
       testCorpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
+
       System.out.println("cecha testowy skończone");
-      testCorpus.stream().limit(250).forEach(predictor::predict);
+
+      testCorpus.forEach(predictor::predict);
+
       System.out.println(predictor.getResults());
 
     } catch (IOException e) {
