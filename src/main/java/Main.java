@@ -1,5 +1,6 @@
 import static Utility.CollectionUtil.splitListByPercent;
 import static Utility.ExtractKeywords.extractKeywords;
+import static Utility.getNelementsFromCorpusWithLabel.getNElements;
 
 import Classifier.KNN;
 import Classifier.Predictor;
@@ -22,7 +23,7 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Hello World!");
 
-    List<String> locations = Arrays.asList("japan", "west-germany");
+    List<String> locations = Arrays.asList("japan", "west-germany", "canada");
 
     try {
       // Data loading
@@ -48,13 +49,19 @@ public class Main {
 
       // Features
       AvgKeywordPositionFromMiddle avg = new AvgKeywordPositionFromMiddle(keywords);
-      FirstSentenceFeature firstSentenceFeature = new FirstSentenceFeature(3);
+      FirstSentenceFeature firstSentenceFeature = new FirstSentenceFeature(5);
 
       MostFrequentBigrams bigrams = new MostFrequentBigrams(5);
 
 //      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
       System.out.println("Ustalanie cechy skończone");
-      KNN knn = new KNN(corpus, new EuclideanMetric(), 2, "locations");
+
+      Corpus knnCorpus = getNElements(100,
+          corpus,
+          "locations",
+          Arrays.asList("japan", "west-germany", "canada"));
+
+      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 2, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
 //      boolean m = predictor.predict(testCorpus.getDocuments().get(0));
