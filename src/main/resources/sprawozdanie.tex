@@ -1,0 +1,135 @@
+\documentclass{classrep}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+
+\studycycle{Informatyka, studia zaoczne, I st.}
+\coursesemester{VI}
+
+\coursename{Komputerowe systemy rozpoznawania}
+\courseyear{2018/2019}
+
+\courseteacher{dr hab. inż. Adam Niewiadomski profesor PŁ
+}
+\coursegroup{niedziela, 12:00}
+
+\author{
+  \studentinfo{Bartosz Myśliwiec}{211827} \and
+  \studentinfo{Mateusz Misiak}{211967} \and
+}
+
+\title{Zadanie 1:  Ekstrakcja cech, miary podobieństwa, klasyfikacja.}
+\svnurl{https://github.com/bmys/text_classifier}
+
+\begin{document}
+\maketitle
+
+\section{Cel}
+
+Celem zadania było zaprojektowanie i stworzenie programu komputerowego zdolnego do klasyfikacji 
+rzeczywistych obiektow przy użyciu metod komputerowego rozpoznawania takich jak ekstrakcja cech oraz algorytm KNN, a następnie przetestowanie wpływu parametrów algorytmu na efektywność klasyfikacji.
+
+
+\section{Wprowadzenie}
+Komputerowe systemy rozpoznawania są to systemy które posiadają sztuczną inteligencję, która ma odwzorować prawdziwą inteligencję ludzi w danej dziedzinie. 
+System taki jest zdolny wykonywać czynności tak samo jak człowiek — ekspert.
+
+
+W celu realizacji rozpoznawania rzeczywistych obiektów przez komputer, konieczne jest przedstawienie ich reprezentacji w sposób zrozumiały dla maszyny, czyli matematycznego odzwierciedlenia cech jako indeksowaną listę atrybutów — obraz.
+
+
+Uzyskanie obrazu jest możliwe dzięki ekstraktorom cech czyli funkcją które przekształcają swoje argumenty na wynik danej cechy możliwy do poddania dalszej analizie.
+
+
+Problemem w tym zadaniu może okazać się zbyt duża wielkość wektora cech, dlatego konieczne jest wstępne przetworzenie danych, na które składa się usunięcie danych zawierających szczątkową informację przydatną do klasyfikacji oraz ujednolicenie cech o podobnym znaczeniu w celu redukcji rozmiaru wektora cech.
+
+
+By to osiągnąć usunęliśmy z wejściowego wektora słów, słowa z stop-list czyli listy słów pojawiających się często w mowie potocznej, które nie służą do przekazywania informacji.
+Usunelismy również znaki przystankowe, cyfry oraz zamieniliśmy wszystkie litery na małe.
+
+
+By ujednolicić słowa o podobnym znaczeniu zastosowaliśmy „stemowanie” czyli proces polegający na obcięciu z wyrazów końcówek fleksyjnych i wyodrębnienie w ten sposób rdzeń słowa.
+
+
+Cechy jakie wykorzystaliśmy do realizacji zadania mają charakter nieparametryczny, czyli do wyznaczania wartości danej cechy nie korzystamy z wiedzy na temat rozkładu danej zmiennej w zbiorze.
+
+
+Stworzone przez nas cechy posiadają również charakter uniwersalny ponieważ nie bazują na właściwościach specyficznych dla danej etykiety a wykorzystują ogólne cechy dotyczące tekstów, a generowanie słów kluczowych odbywa się w sposób automatyczny.
+
+
+Zbiór dokumentów podzieliliśmy na dwa podzbiory:
+- zbiór uczący wykorzystywany do wygenerowania słów kluczowych oraz zapewnienia wstępnych przypadków dla algorytmu KNN "Zimny start". Oznaczany w sprawozdaniu jako L stanowiący 60\% zbioru początkowego
+
+
+-zbiór testowy służący w celu weryfikacji zdolności uogólniających modelu. Oznaczamy jako T
+
+Algorytm KNN jest to algorytm który dokonuje kwalifikacji na podstawie podobieństwa wektorów cech, przypadku klasyfikowanego oraz skwalifikowanych już wcześniej obiektów.
+Podobieństwo wektora cech uzyskiwane jest za pomocą metryki, która wyznacza odległość pomiędzy wektorami cech.
+Najliczniejsza etykieta sposród K elementów o najmniejszym wyniku metryki decyduje o klasie którą przydzielimy elementowi klasyfikowanemu.
+
+
+W naszym rozwiązaniu problemu klasyfikacji zbioru artykułów prasowych ze zbioru „reuters 21578” względem ich etykiet lokalizacji zaimplementowaliśmy następujące ekstraktory cech:
+\subsubsection{Ekstraktory cech}
+
+Algorytm ten wyznacza odległości w n-wymiarowej przestrzeni do wszystkich obiektów w zbiorze uczącym za pomocą jednej z metryk. A następnie wybiera k obiektów o najmniejszym dystansie od klasyfikowanego obiektu i za pomocą głosowania wyłania najczęściej występująca etykietę.
+
+Metryki.
+W celu oceny podobieństwa wektorów cech użyliśmy następujących metryk:
+
+Metryka Euklidesowa:
+$${\sqrt {\sum _{i=1}^{n}(x_{i}-y_{i})^{2}}}$$
+
+Metryka Czebyszewa:
+$$\max _{i}|x_{i}-y_{i}|$$
+
+
+Metryka taksówkowa:
+$$\sum _{i=1}^{n}|x_{i}-y_{i}|$$
+
+oraz własnej metryki: 
+$$\frac{\sum(x{_{ai}}-x{_{bi}})^{(n+1)-|\left \{ x{_{ai}} \epsilon X1,x{_{bi}} \epsilon X2 : (x{_{ai}}-x{_{bi}}) > 0.3 \right \}|}}{n}$$
+n - ilość cech\newline
+x - wartosć cechy\newline
+
+
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+japan & 69 / 218 & 31,65\%\\
+\hline
+west-germany & 18 / 133 & 13,53\%\\
+\hline
+canada & 52 / 317 & 16,40\%\\
+\hline
+usa & 1130 / 4341 & 26,03\%\\
+\hline
+france & 8 / 95 & 8,42\%\\
+\hline
+uk & 54 / 305 & 17,70\%\\
+\hline
+\end{tabular}
+{\raggedright bla \par}
+
+
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+japan & 67 / 218 & 30,73\%\\
+\hline
+west-germany & 34 / 133 & 25,56\%\\
+\hline
+canada & 91 / 317 & 28,71\%\\
+\hline
+usa & 1605 / 4341 & 36,97\%\\
+\hline
+france & 8 / 95 & 8,42\%\\
+\hline
+uk & 37 / 305 & 12,13\%\\
+\hline
+\end{tabular}
+{\raggedright 
+bla 
+\par}
+
+\end{document}

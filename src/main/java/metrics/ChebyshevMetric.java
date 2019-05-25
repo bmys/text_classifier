@@ -1,6 +1,6 @@
 package metrics;
 
-import static Utility.StringDistance.levenshteinDistance;
+import static Utility.StringDistance.hammingDistance;
 
 import Model.Document;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class ChebyshevMetric implements Metric {
 
     if (doc1str.size() != 0 && doc2str.size() != 0) {
       for (String featureName : doc1.getStringFeatures().keySet()) {
-        double diff = levenshteinDistance(doc1str.get(featureName), doc2str.get(featureName));
+        double diff = hammingDistance(doc1str.get(featureName), doc2str.get(featureName));
         if (diff > maxDistance) {
           maxDistance = diff;
         }

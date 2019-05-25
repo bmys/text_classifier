@@ -1,6 +1,6 @@
 package metrics;
 
-import static Utility.StringDistance.levenshteinDistance;
+import static Utility.StringDistance.hammingDistance;
 
 import Model.Document;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class EuclideanMetric implements Metric {
         String str1 = doc1str.get(featureName);
         String str2 = doc2str.get(featureName);
         distance +=
-            Math.pow(levenshteinDistance(str1, str2), 2d);
+            Math.pow(hammingDistance(str1, str2), 2d);
       }
     }
 

@@ -103,8 +103,8 @@ public class Main {
 //      corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
 //      testCorpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
 //
-//      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
-//      testCorpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
+      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
+      testCorpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
 //
 //      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
 //      testCorpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
@@ -114,9 +114,9 @@ public class Main {
 //
 //      corpus.forEach(o -> o.setNumericFeature(quarterKeywordOccurenceRatio.extract(o)));
 //      testCorpus.forEach(o -> o.setNumericFeature(quarterKeywordOccurenceRatio.extract(o)));
-
-      corpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
-      testCorpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
+//
+//      corpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
+//      testCorpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
 
       System.out.println("cecha testowy skończone");
 

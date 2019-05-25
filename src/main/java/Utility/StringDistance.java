@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class StringDistance {
 
   public static double hammingDistance(String doc1, String doc2) {
-    int size = Math.max(doc1.length(), doc2.length());
+    int size = Math.min(doc1.length(), doc2.length());
     double result = (double) Math.abs(doc1.length() - doc2.length());
     for (int i = 0; i < size; i++) {
       if (doc1.charAt(i) != doc2.charAt(i)) {

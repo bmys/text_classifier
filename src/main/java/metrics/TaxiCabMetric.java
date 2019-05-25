@@ -1,6 +1,6 @@
 package metrics;
 
-import static Utility.StringDistance.levenshteinDistance;
+import static Utility.StringDistance.hammingDistance;
 
 import Model.Document;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class TaxiCabMetric implements Metric {
 
     if (doc1str.size() != 0 && doc2str.size() != 0) {
       for (String featureName : doc1.getStringFeatures().keySet()) {
-        distance += levenshteinDistance(doc1str.get(featureName), doc2str.get(featureName));
+        distance += hammingDistance(doc1str.get(featureName), doc2str.get(featureName));
       }
     }
 
