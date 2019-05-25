@@ -34,7 +34,7 @@ public class StringDistance {
       }
     }
 
-    return dp[doc1.length()][doc2.length()];
+    return Math.log10(1.0 + dp[doc1.length()][doc2.length()]);
   }
 
   public static int costOfSubstitution(char a, char b) {

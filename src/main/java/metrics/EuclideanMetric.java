@@ -25,9 +25,11 @@ public class EuclideanMetric implements Metric {
     Map<String, String> doc2str = doc2.getStringFeatures();
 
     if (doc1str.size() != 0 && doc2str.size() != 0) {
-      for (String featureName : doc1.getNumericFeatures().keySet()) {
+      for (String featureName : doc1.getStringFeatures().keySet()) {
+        String str1 = doc1str.get(featureName);
+        String str2 = doc2str.get(featureName);
         distance +=
-            Math.pow(levenshteinDistance(doc1str.get(featureName), doc2str.get(featureName)), 2d);
+            Math.pow(levenshteinDistance(str1, str2), 2d);
       }
     }
 
