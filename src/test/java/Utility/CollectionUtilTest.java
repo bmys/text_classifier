@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.collections4.map.MultiKeyMap;
 import org.junit.Test;
 
 public class CollectionUtilTest {
@@ -35,4 +36,15 @@ public class CollectionUtilTest {
   @Test
   public void getMostCommonLabel() {
   }
+
+  @Test
+  public void multiKeyMap() {
+    MultiKeyMap<String, Integer> map = new MultiKeyMap<>();
+    map.put("a", "b", 1);
+    map.put("b", "a", 2);
+    map.put("a", "a", 3);
+    map.put("b", "b", 4);
+    System.out.println(map);
+  }
+
 }

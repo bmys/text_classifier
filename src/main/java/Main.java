@@ -20,7 +20,7 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Hello World!");
 
-    List<String> locations = Arrays.asList("japan");
+    List<String> locations = Arrays.asList("japan", "west-germany", "usa");
 
     try {
       List<Document> documents = LoadSGML
@@ -43,10 +43,20 @@ public class Main {
       KNN knn = new KNN(corpus, new EuclideanMetric(), 5, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
-      boolean m = predictor.predict(testCorpus.getDocuments().get(0));
-      System.out.println(m);
+//      boolean m = predictor.predict(testCorpus.getDocuments().get(0));
+//      System.out.println(m);
+//      m = predictor.predict(testCorpus.getDocuments().get(1));
+//      System.out.println(m);
+//      m = predictor.predict(testCorpus.getDocuments().get(2));
+//      System.out.println(m);
+//      m = predictor.predict(testCorpus.getDocuments().get(3));
+//      System.out.println(m);
+//      m = predictor.predict(testCorpus.getDocuments().get(4));
+//      System.out.println(m);
 
-      int w = 5;
+      testCorpus.forEach(predictor::predict);
+      System.out.println(predictor.getResults());
+
     } catch (IOException e) {
       e.printStackTrace();
     }
