@@ -4,6 +4,7 @@ import static Utility.ExtractKeywords.extractKeywords;
 import Classifier.KNN;
 import Classifier.Predictor;
 import Features.myFeatures.AvgKeywordPositionFromMiddle;
+import Features.myFeatures.MostFrequentBigrams;
 import Model.Corpus;
 import Model.Document;
 import Utility.DataLoader.LoadSGML;
@@ -20,7 +21,7 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Hello World!");
 
-    List<String> locations = Arrays.asList("japan", "west-germany", "usa");
+    List<String> locations = Arrays.asList("japan", "west-germany");
 
     try {
       List<Document> documents = LoadSGML
@@ -38,9 +39,13 @@ public class Main {
       List<String> keywords = extractKeywords(k, 15);
 
       AvgKeywordPositionFromMiddle avg = new AvgKeywordPositionFromMiddle(keywords);
-      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
 
-      KNN knn = new KNN(corpus, new EuclideanMetric(), 5, "locations");
+      MostFrequentBigrams bigrams = new MostFrequentBigrams(5);
+
+      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
+//      corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
+
+      KNN knn = new KNN(corpus, new EuclideanMetric(), 3, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
 //      boolean m = predictor.predict(testCorpus.getDocuments().get(0));
@@ -54,6 +59,7 @@ public class Main {
 //      m = predictor.predict(testCorpus.getDocuments().get(4));
 //      System.out.println(m);
 
+      // TODO: !!! calculate feature for test example <facepalm.gif>
       testCorpus.forEach(predictor::predict);
       System.out.println(predictor.getResults());
 
