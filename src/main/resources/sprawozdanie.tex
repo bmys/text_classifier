@@ -57,17 +57,16 @@ Stworzone przez nas cechy posiadają również charakter uniwersalny ponieważ n
 
 
 Zbiór dokumentów podzieliliśmy na dwa podzbiory:
-- zbiór uczący wykorzystywany do wygenerowania słów kluczowych oraz zapewnienia wstępnych przypadków dla algorytmu KNN "Zimny start". Oznaczany w sprawozdaniu jako L stanowiący 60\% zbioru początkowego
+- zbiór uczący wykorzystywany do wygenerowania słów kluczowych oraz zapewnienia wstępnych przypadków dla algorytmu KNN "Zimny start" oraz zbiór testowy służący do weryfikacji działania algorytmu.
 
-
--zbiór testowy służący w celu weryfikacji zdolności uogólniających modelu. Oznaczamy jako T
 
 Algorytm KNN jest to algorytm który dokonuje kwalifikacji na podstawie podobieństwa wektorów cech, przypadku klasyfikowanego oraz skwalifikowanych już wcześniej obiektów.
 Podobieństwo wektora cech uzyskiwane jest za pomocą metryki, która wyznacza odległość pomiędzy wektorami cech.
 Najliczniejsza etykieta sposród K elementów o najmniejszym wyniku metryki decyduje o klasie którą przydzielimy elementowi klasyfikowanemu.
 
 
-W naszym rozwiązaniu problemu klasyfikacji zbioru artykułów prasowych ze zbioru „reuters 21578” względem ich etykiet lokalizacji zaimplementowaliśmy następujące ekstraktory cech:
+W naszym rozwiązaniu problemu klasyfikacji zbioru artykułów prasowych ze zbioru „reuters 21578” względem ich etykiet lokalizacji, według tematów oraz własny zbiór danych pochodzący z najczęściej zadawanych pytań na serwisie stackoverflow z tagów java oraz python.
+
 \subsubsection{Ekstraktory cech}
 \begin{enumerate}
   \item Średnia pozycja słów kluczowych od środka dokumentu.
@@ -896,7 +895,7 @@ wszystkie & 168,00 / 239 & 70,29\%\\
 \newpage
 \subsection{Zbadanie predykcji dla własnego zbioru danych}
 
-\subsubsection{fdgdfg}
+\subsubsection{Wszystkie cechy k = 5, metryka: euklidesowa, słów kluczowych na klasę: 15}
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|c|}
