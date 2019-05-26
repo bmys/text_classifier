@@ -96,7 +96,7 @@ public class Main {
           "locations",
           Arrays.asList("japan", "west-germany", "canada", "usa", "france", "uk"));
 
-      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 10, "locations");
+      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 30, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
       // Dodawanie cech

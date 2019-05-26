@@ -102,9 +102,7 @@ $$\sum _{i=1}^{n}|x_{i}-y_{i}|$$
 \section{Wyniki}
 
 \subsection{Porównanie wpływu parametru k na klasyfikacje}
-Wszystkie cechy, k = 2, metryka: euklidesowa, słów kluczowych na klasę: 10\newline
-
-
+Wszystkie cechy, k = 2, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
 
 \begin{table}[h]
 \centering
@@ -112,17 +110,17 @@ Wszystkie cechy, k = 2, metryka: euklidesowa, słów kluczowych na klasę: 10\ne
 \hline
  X  & japan & west-germany & canada & usa & france & uk\\
 \hline
-japan & 19 & 1 & 23 & 170 & 5 & 0\\
+japan & 56 & 2 & 12 & 138 & 3 & 7\\
 \hline
-west-germany & 24 & 5 & 16 & 85 & 3 & 0\\
+west-germany & 33 & 7 & 11 & 66 & 5 & 11\\
 \hline
-canada & 13 & 0 & 15 & 287 & 1 & 1\\
+canada & 23 & 1 & 32 & 254 & 3 & 4\\
 \hline
-usa & 150 & 0 & 164 & 4009 & 13 & 5\\
+usa & 221 & 11 & 286 & 3791 & 14 & 18\\
 \hline
-france & 7 & 1 & 4 & 81 & 2 & 0\\
+france & 13 & 0 & 4 & 67 & 7 & 4\\
 \hline
-uk & 18 & 0 & 23 & 260 & 2 & 2\\
+uk & 31 & 4 & 33 & 207 & 9 & 21\\
 \hline
 \end{tabular}
 \caption{Macierz pomyłek}\end{table}
@@ -133,17 +131,19 @@ uk & 18 & 0 & 23 & 260 & 2 & 2\\
 \hline
 Etykieta & Wynik klasyfikacji & procent\\
 \hline
-japan & 19 / 218 & 8,72\%\\
+japan & 56 / 218 & 25,69\%\\
 \hline
-west-germany & 5 / 133 & 3,76\%\\
+west-germany & 7 / 133 & 5,26\%\\
 \hline
-canada & 15 / 317 & 4,73\%\\
+canada & 32 / 317 & 10,09\%\\
 \hline
-usa & 4009 / 4341 & 92,35\%\\
+usa & 3791 / 4341 & 87,33\%\\
 \hline
-france & 2 / 95 & 2,11\%\\
+france & 7 / 95 & 7,37\%\\
 \hline
-uk & 2 / 305 & ,66\%\\
+uk & 21 / 305 & 6,89\%\\
+\hline
+wszystkie & 3914,00 / 5409 & 72,36\%\\
 \hline
 \end{tabular}
 \caption{Ilość poprawnie skwalifikowanych}\end{table}
@@ -153,7 +153,8 @@ uk & 2 / 305 & ,66\%\\
 
 
 \newpage
-Wszystkie cechy, k = 5, metryka: euklidesowa, słów kluczowych na klasę: 10\newline
+Wszystkie cechy, k = 5, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
+
 
 \begin{table}[h]
 \centering
@@ -161,17 +162,17 @@ Wszystkie cechy, k = 5, metryka: euklidesowa, słów kluczowych na klasę: 10\ne
 \hline
  X  & japan & west-germany & canada & usa & france & uk\\
 \hline
-japan & 3 & 22 & 40 & 134 & 19 & 0\\
+japan & 46 & 17 & 27 & 89 & 22 & 17\\
 \hline
-west-germany & 1 & 27 & 17 & 72 & 16 & 0\\
+west-germany & 32 & 13 & 6 & 60 & 18 & 4\\
 \hline
-canada & 2 & 19 & 111 & 176 & 8 & 1\\
+canada & 34 & 30 & 87 & 145 & 15 & 6\\
 \hline
-usa & 12 & 181 & 2031 & 1943 & 105 & 69\\
+usa & 232 & 279 & 1483 & 2167 & 97 & 83\\
 \hline
-france & 3 & 11 & 12 & 66 & 3 & 0\\
+france & 11 & 15 & 5 & 45 & 17 & 2\\
 \hline
-uk & 6 & 14 & 57 & 213 & 13 & 2\\
+uk & 24 & 52 & 26 & 143 & 25 & 35\\
 \hline
 \end{tabular}
 \caption{Macierz pomyłek}\end{table}
@@ -182,42 +183,158 @@ uk & 6 & 14 & 57 & 213 & 13 & 2\\
 \hline
 Etykieta & Wynik klasyfikacji & procent\\
 \hline
-japan & 3 / 218 & 1,38\%\\
+japan & 46 / 218 & 21,10\%\\
 \hline
-west-germany & 27 / 133 & 20,30\%\\
+west-germany & 13 / 133 & 9,77\%\\
 \hline
-canada & 111 / 317 & 35,02\%\\
+canada & 87 / 317 & 27,44\%\\
 \hline
-usa & 1943 / 4341 & 44,76\%\\
+usa & 2167 / 4341 & 49,92\%\\
+\hline
+france & 17 / 95 & 17,89\%\\
+\hline
+uk & 35 / 305 & 11,48\%\\
+\hline
+wszystkie & 2365,00 / 5409 & 43,72\%\\
+\hline
+\end{tabular}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wszystkie cechy, k = 10, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ X  & japan & west-germany & canada & usa & france & uk\\
+\hline
+japan & 54 & 15 & 17 & 64 & 29 & 39\\
+\hline
+west-germany & 32 & 16 & 7 & 40 & 23 & 15\\
+\hline
+canada & 31 & 33 & 64 & 140 & 12 & 37\\
+\hline
+usa & 279 & 264 & 1134 & 2307 & 114 & 243\\
+\hline
+france & 16 & 12 & 5 & 30 & 16 & 16\\
+\hline
+uk & 29 & 46 & 32 & 107 & 24 & 67\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+japan & 54 / 218 & 24,77\%\\
+\hline
+west-germany & 16 / 133 & 12,03\%\\
+\hline
+canada & 64 / 317 & 20,19\%\\
+\hline
+usa & 2307 / 4341 & 53,14\%\\
+\hline
+france & 16 / 95 & 16,84\%\\
+\hline
+uk & 67 / 305 & 21,97\%\\
+\hline
+wszystkie & 2524,00 / 5409 & 46,66\%\\
+\hline
+\end{tabular}
+\caption{Ilość poprawnie skwalifikowanych}
+\end{table}
+
+
+
+
+
+\newpage
+Wszystkie cechy, k = 20, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ X  & japan & west-germany & canada & usa & france & uk\\
+\hline
+japan & 44 & 42 & 8 & 41 & 1 & 82\\
+\hline
+west-germany & 31 & 36 & 1 & 16 & 0 & 49\\
+\hline
+canada & 26 & 45 & 18 & 119 & 0 & 109\\
+\hline
+usa & 216 & 399 & 345 & 2260 & 2 & 1119\\
+\hline
+france & 16 & 17 & 1 & 17 & 3 & 41\\
+\hline
+uk & 27 & 63 & 5 & 61 & 1 & 148\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+japan & 44 / 218 & 20,18\%\\
+\hline
+west-germany & 36 / 133 & 27,07\%\\
+\hline
+canada & 18 / 317 & 5,68\%\\
+\hline
+usa & 2260 / 4341 & 52,06\%\\
 \hline
 france & 3 / 95 & 3,16\%\\
 \hline
-uk & 2 / 305 & ,66\%\\
+uk & 148 / 305 & 48,52\%\\
+\hline
+wszystkie & 2509,00 / 5409 & 46,39\%\\
 \hline
 \end{tabular}
 \caption{Ilość poprawnie skwalifikowanych}\end{table}
 
 
 
-
-
+\newpage
+Wszystkie cechy, k = 30, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
  X  & japan & west-germany & canada & usa & france & uk\\
 \hline
-japan & 65 & 38 & 14 & 30 & 0 & 71\\
+japan & 17 & 68 & 0 & 49 & 0 & 84\\
 \hline
-west-germany & 33 & 38 & 4 & 11 & 0 & 47\\
+west-germany & 6 & 61 & 0 & 14 & 0 & 52\\
 \hline
-canada & 64 & 22 & 51 & 30 & 0 & 150\\
+canada & 6 & 64 & 0 & 128 & 1 & 118\\
 \hline
-usa & 556 & 209 & 892 & 74 & 1 & 2609\\
+usa & 44 & 576 & 2 & 2419 & 1 & 1299\\
 \hline
-france & 33 & 10 & 3 & 15 & 0 & 34\\
+france & 4 & 28 & 0 & 17 & 2 & 44\\
 \hline
-uk & 91 & 24 & 15 & 35 & 1 & 139\\
+uk & 5 & 85 & 0 & 60 & 1 & 154\\
 \hline
 \end{tabular}
 \caption{Macierz pomyłek}\end{table}
@@ -228,20 +345,23 @@ uk & 91 & 24 & 15 & 35 & 1 & 139\\
 \hline
 Etykieta & Wynik klasyfikacji & procent\\
 \hline
-japan & 65 / 218 & 29,82\%\\
+japan & 17 / 218 & 7,80\%\\
 \hline
-west-germany & 38 / 133 & 28,57\%\\
+west-germany & 61 / 133 & 45,86\%\\
 \hline
-canada & 51 / 317 & 16,09\%\\
+canada & 0 / 317 & 0\%\\
 \hline
-usa & 74 / 4341 & 1,70\%\\
+usa & 2419 / 4341 & 55,72\%\\
 \hline
-france & null / 95 & 0\%\\
+france & 2 / 95 & 2,11\%\\
 \hline
-uk & 139 / 305 & 45,57\%\\
+uk & 154 / 305 & 50,49\%\\
+\hline
+wszystkie & 2653,00 / 5409 & 49,05\%\\
 \hline
 \end{tabular}
 \caption{Ilość poprawnie skwalifikowanych}\end{table}
+
 
 
 

@@ -113,12 +113,17 @@ public class toLatex {
     double total = 0.0;
 
     for (String location : locations) {
-      total += mapa.get(location, location);
+      try {
+        total += mapa.get(location, location);
+      } catch (Exception e) {
+
+      }
     }
 
     StringJoiner joiner = new StringJoiner(" & ");
+    joiner.add("wszystkie");
     joiner.add(df.format(total) + " / " + "5409");
-    joiner.add(df.format((total * 100.0) / 5409d) + "%");
+    joiner.add(df.format((total * 100.0) / 5409d) + "\\%");
 
     stringBuilder.append(joiner.toString());
     stringBuilder.append("\\\\\n");
