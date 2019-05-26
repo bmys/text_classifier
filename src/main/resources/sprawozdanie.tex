@@ -100,8 +100,8 @@ $$\sum _{i=1}^{n}|x_{i}-y_{i}|$$
 
 
 \section{Wyniki}
-
-\subsection{Porównanie wpływu parametru k na klasyfikacje}
+\subsection{Zbiór reuters kategoria places}
+\subsubsection{Porównanie wpływu parametru k na klasyfikacje}
 Wszystkie cechy, k = 2, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
 
 \begin{table}[h]
@@ -153,7 +153,7 @@ wszystkie & 3914,00 / 5409 & 72,36\%\\
 
 
 \newpage
-Wszystkie cechy, k = 5, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
+\subsubsection{Wszystkie cechy, k = 5, metryka: euklidesowa, słów kluczowych na klasę: 30}
 
 
 \begin{table}[h]
@@ -216,7 +216,7 @@ wszystkie & 2365,00 / 5409 & 43,72\%\\
 
 
 
-Wszystkie cechy, k = 10, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
+\subsubsection{Wszystkie cechy, k = 10, metryka: euklidesowa, słów kluczowych na klasę: 30}
 
 \begin{table}[h]
 \centering
@@ -268,7 +268,7 @@ wszystkie & 2524,00 / 5409 & 46,66\%\\
 
 
 \newpage
-Wszystkie cechy, k = 20, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
+\subsubsection{Wszystkie cechy, k = 20, metryka: euklidesowa, słów kluczowych na klasę: 30}
 
 \begin{table}[h]
 \centering
@@ -317,7 +317,7 @@ wszystkie & 2509,00 / 5409 & 46,39\%\\
 
 
 \newpage
-Wszystkie cechy, k = 30, metryka: euklidesowa, słów kluczowych na klasę: 30\newline
+\subsubsection{Wszystkie cechy, k = 30, metryka: euklidesowa, słów kluczowych na klasę: 30}
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|}
@@ -888,6 +888,39 @@ jobs & 3 / 25 & 12,00\%\\
 sugar & 17 / 54 & 31,48\%\\
 \hline
 wszystkie & 168,00 / 239 & 70,29\%\\
+\hline
+\end{tabular}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
+
+
+\newpage
+\subsection{Zbadanie predykcji dla własnego zbioru danych}
+
+\subsubsection{fdgdfg}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ X  & java & python\\
+\hline
+java & 8 & 17\\
+\hline
+python & 9 & 16\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+java & 8 / 25 & 32,00\%\\
+\hline
+python & 16 / 25 & 64,00\%\\
+\hline
+wszystkie & 24,00 / 40 & 60,00\%\\
 \hline
 \end{tabular}
 \caption{Ilość poprawnie skwalifikowanych}\end{table}

@@ -1,4 +1,5 @@
 import static Utility.CollectionUtil.splitListByPercent;
+import static Utility.DataLoader.LoadFromPlaneText.getDocumentsFromPlainText;
 import static Utility.ExtractKeywords.extractKeywordsIDF;
 import static Utility.ExtractKeywords.inverseDocumentFrequency;
 import static Utility.getNelementsFromCorpusWithLabel.getNElements;
@@ -15,17 +16,16 @@ import Features.myFeatures.QuarterKeywordOccurenceRatio;
 import Features.myFeatures.UniqueToAllTokensRatio;
 import Model.Corpus;
 import Model.Document;
-import Utility.DataLoader.LoadSGML;
 import Utility.Preprocessing;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.util.Pair;
-import metrics.ChebyshevMetric;
+import metrics.EuclideanMetric;
 
 public class Main {
 
@@ -36,15 +36,18 @@ public class Main {
 //        .asList("japan", "west-germany", "canada", "usa", "france", "uk");
 
     List<String> locations = Arrays
-        .asList("crude", "jobs", "sugar");
+        .asList("java", "python");
 
     try {
       // Data loading
-      List<Document> documents = LoadSGML
-          .loadFromDir("/home/arch/IdeaProjects/text_classifier_new/src/main/resources/reuters",
-              locations);
+//      List<Document> documents = LoadSGML
+//          .loadFromDir("/home/arch/IdeaProjects/text_classifier_new/src/main/resources/reuters",
+//              locations);
 
-      Pair<List<Document>, List<Document>> twoSets = splitListByPercent(documents, 60);
+      List<Document> documents = getDocumentsFromPlainText();
+      Collections.shuffle(documents);
+
+      Pair<List<Document>, List<Document>> twoSets = splitListByPercent(documents, 50);
 
       // Split to sets
       Corpus corpus = new Corpus(twoSets.getKey(), "train");
@@ -66,7 +69,7 @@ public class Main {
       for (String location : locations) {
         List<List<String>> k = corpus
             .stream()
-            .filter(o -> o.getLabels().get("topic").get(0).equals(location))
+            .filter(o -> o.getLabels().get("lang").get(0).equals(location))
             .map(Document::getTokens)
             .collect(Collectors.toList());
 
@@ -100,13 +103,13 @@ public class Main {
 //          Arrays.asList("japan", "west-germany", "canada", "usa", "france", "uk"));
 
       // Pobieranie elementów do zimnego startu
-      Corpus knnCorpus = getNElements(200,
+      Corpus knnCorpus = getNElements(20,
           corpus,
-          "topic",
+          "lang",
           locations);
 
-      KNN knn = new KNN(knnCorpus, new ChebyshevMetric(), 8, "topic");
-      Predictor predictor = new Predictor(knn, "topic");
+      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 5, "lang");
+      Predictor predictor = new Predictor(knn, "lang");
 
 //       Dodawanie cech
       corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
@@ -149,7 +152,7 @@ public class Main {
           .println(mapToPercentLatex(predictor.getResults(), "Ilość poprawnie skwalifikowanych"));
 
 
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }

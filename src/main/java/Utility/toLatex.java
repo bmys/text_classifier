@@ -10,12 +10,12 @@ public class toLatex {
   public static String mapToLatex(MultiKeyMap<String, Integer> mapa, String opis) {
     StringBuilder stringBuilder = new StringBuilder();
     List<String> locations = Arrays
-        .asList("crude", "jobs", "sugar");
+        .asList("java", "python");
 
     // create header
     stringBuilder.append("\\begin{table}[h]\n");
     stringBuilder.append("\\centering\n");
-    stringBuilder.append("\\begin{tabular}{|c|c|c|c|}\n");
+    stringBuilder.append("\\begin{tabular}{|c|c|c|}\n");
     stringBuilder.append("\\hline\n");
     StringJoiner joiner1 = new StringJoiner(" & ");
 
@@ -57,13 +57,13 @@ public class toLatex {
   public static String mapToPercentLatex(MultiKeyMap<String, Integer> mapa, String opis) {
     StringBuilder stringBuilder = new StringBuilder();
     List<String> locations = Arrays
-        .asList("crude", "jobs", "sugar");
+        .asList("java", "python");
     DecimalFormat df = new DecimalFormat("#.00");
 
     // create header
     stringBuilder.append("\\begin{table}[h]\n");
     stringBuilder.append("\\centering\n");
-    stringBuilder.append("\\begin{tabular}{|c|c|c|}\n");
+    stringBuilder.append("\\begin{tabular}{|c|c|}\n");
     stringBuilder.append("\\hline\n");
 
     StringJoiner joiner1 = new StringJoiner(" & ");
@@ -121,8 +121,8 @@ public class toLatex {
 
     StringJoiner joiner = new StringJoiner(" & ");
     joiner.add("wszystkie");
-    joiner.add(df.format(total) + " / " + "239");
-    joiner.add(df.format((total * 100.0) / 239d) + "\\%");
+    joiner.add(df.format(total) + " / " + "40");
+    joiner.add(df.format((total * 100.0) / 40d) + "\\%");
 
     stringBuilder.append(joiner.toString());
     stringBuilder.append("\\\\\n");
@@ -139,6 +139,139 @@ public class toLatex {
   }
 
 }
+
+//  public static String mapToLatex(MultiKeyMap<String, Integer> mapa, String opis) {
+//    StringBuilder stringBuilder = new StringBuilder();
+//    List<String> locations = Arrays
+//        .asList("crude", "jobs", "sugar");
+//
+//    // create header
+//    stringBuilder.append("\\begin{table}[h]\n");
+//    stringBuilder.append("\\centering\n");
+//    stringBuilder.append("\\begin{tabular}{|c|c|c|c|}\n");
+//    stringBuilder.append("\\hline\n");
+//    StringJoiner joiner1 = new StringJoiner(" & ");
+//
+//    joiner1.add(" X ");
+//    for (String location : locations) {
+//      joiner1.add(location);
+//    }
+//
+//    stringBuilder.append(joiner1.toString());
+//    stringBuilder.append("\\\\\n");
+//
+//    for (String location : locations) {
+//      // kreska
+//      stringBuilder.append("\\hline\n");
+//
+//      StringJoiner joiner = new StringJoiner(" & ");
+//      joiner.add(location);
+//      for (String rowLocation : locations) {
+//        int value;
+//        try {
+//          value = mapa.get(location, rowLocation);
+//        } catch (NullPointerException e) {
+//          value = 0;
+//        }
+//
+//        joiner.add(Integer.toString(value));
+//      }
+//      stringBuilder.append(joiner.toString());
+//      stringBuilder.append("\\\\\n");
+//    }
+//    stringBuilder.append("\\hline\n");
+//    stringBuilder.append("\\end{tabular}\n");
+//    stringBuilder.append("\\caption{" + opis + "}");
+//    stringBuilder.append("\\end{table}\n");
+//
+//    return stringBuilder.toString();
+//  }
+//
+//  public static String mapToPercentLatex(MultiKeyMap<String, Integer> mapa, String opis) {
+//    StringBuilder stringBuilder = new StringBuilder();
+//    List<String> locations = Arrays
+//        .asList("crude", "jobs", "sugar");
+//    DecimalFormat df = new DecimalFormat("#.00");
+//
+//    // create header
+//    stringBuilder.append("\\begin{table}[h]\n");
+//    stringBuilder.append("\\centering\n");
+//    stringBuilder.append("\\begin{tabular}{|c|c|c|}\n");
+//    stringBuilder.append("\\hline\n");
+//
+//    StringJoiner joiner1 = new StringJoiner(" & ");
+//    joiner1.add("Etykieta");
+//    joiner1.add("Wynik klasyfikacji");
+//    joiner1.add("procent");
+//    stringBuilder.append(joiner1.toString());
+//    stringBuilder.append("\\\\\n");
+//    int all = 0;
+//    for (String location : locations) {
+//      // kreska
+//      stringBuilder.append("\\hline\n");
+//
+//      StringJoiner joiner = new StringJoiner(" & ");
+//      joiner.add(location);
+//      int licznosc = 0;
+//
+//
+//      for (String rowLocation : locations) {
+//        int value;
+//        try {
+//          licznosc += mapa.get(location, rowLocation);
+//        } catch (NullPointerException e) {
+//
+//        }
+//      }
+//      all += licznosc;
+//      try {
+//        joiner.add(mapa.get(location, location) + " / " + Integer.toString(licznosc));
+//      } catch (NullPointerException e) {
+//        joiner.add(0 + " / " + Integer.toString(licznosc));
+//      }
+//
+//      try {
+//        joiner.add(
+//            df.format(((double) mapa.get(location, location) * 100d) / (double) licznosc) + "\\%");
+//      } catch (Exception e) {
+//        joiner.add("0%");
+//      }
+//
+//      stringBuilder.append(joiner.toString());
+//      stringBuilder.append("\\\\\n");
+//    }
+//    stringBuilder.append("\\hline\n");
+//
+//    double total = 0.0;
+//
+//    for (String location : locations) {
+//      try {
+//        total += mapa.get(location, location);
+//      } catch (Exception e) {
+//
+//      }
+//    }
+//
+//    StringJoiner joiner = new StringJoiner(" & ");
+//    joiner.add("wszystkie");
+//    joiner.add(df.format(total) + " / " + "239");
+//    joiner.add(df.format((total * 100.0) / 239d) + "\\%");
+//
+//    stringBuilder.append(joiner.toString());
+//    stringBuilder.append("\\\\\n");
+//    stringBuilder.append("\\hline\n");
+//
+//    stringBuilder.append("\\end{tabular}\n");
+//    stringBuilder.append("\\caption{" + opis + "}");
+//    stringBuilder.append("\\end{table}\n");
+//
+//
+//
+//
+//    return stringBuilder.toString();
+//  }
+//
+//}
 
 //public class toLatex {
 //

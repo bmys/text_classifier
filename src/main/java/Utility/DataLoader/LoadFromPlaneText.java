@@ -1,5 +1,6 @@
 package Utility.DataLoader;
 
+import Model.Document;
 import com.google.common.io.Closer;
 import com.google.common.io.Resources;
 import java.io.IOException;
@@ -39,5 +40,28 @@ public class LoadFromPlaneText {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static List<Document> getDocumentsFromPlainText() {
+        List<Document> documents = new ArrayList<>();
+        List<String> java = loadFromResource("javaSet");
+        List<String> python = loadFromResource("pythonSet");
+
+        for (String s : java) {
+            Document doc = new Document();
+            doc.setRawText(s);
+            doc.setLabels("lang", Arrays.asList("java"));
+            documents.add(doc);
+            //
+        }
+        for (String s : python) {
+            Document doc = new Document();
+            doc.setRawText(s);
+            doc.setLabels("lang", Arrays.asList("python"));
+            documents.add(doc);
+            //
+        }
+
+        return documents;
     }
 }
