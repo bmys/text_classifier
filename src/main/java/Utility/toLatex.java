@@ -14,6 +14,8 @@ public class toLatex {
         .asList("japan", "west-germany", "canada", "usa", "france", "uk");
 
     // create header
+    stringBuilder.append("\\begin{table}[h]\n");
+    stringBuilder.append("\\centering\n");
     stringBuilder.append("\\begin{tabular}{|c|c|c|c|c|c|c|}\n");
     stringBuilder.append("\\hline\n");
     StringJoiner joiner1 = new StringJoiner(" & ");
@@ -47,9 +49,8 @@ public class toLatex {
     }
     stringBuilder.append("\\hline\n");
     stringBuilder.append("\\end{tabular}\n");
-    stringBuilder.append("{\\raggedright ");
-    stringBuilder.append(opis);
-    stringBuilder.append(" \\par}");
+    stringBuilder.append("\\caption{" + opis + "}");
+    stringBuilder.append("\\end{table}\n");
 
     return stringBuilder.toString();
   }
@@ -61,6 +62,8 @@ public class toLatex {
     DecimalFormat df = new DecimalFormat("#.00");
 
     // create header
+    stringBuilder.append("\\begin{table}[h]\n");
+    stringBuilder.append("\\centering\n");
     stringBuilder.append("\\begin{tabular}{|c|c|c|}\n");
     stringBuilder.append("\\hline\n");
 
@@ -70,7 +73,7 @@ public class toLatex {
     joiner1.add("procent");
     stringBuilder.append(joiner1.toString());
     stringBuilder.append("\\\\\n");
-
+    int all = 0;
     for (String location : locations) {
       // kreska
       stringBuilder.append("\\hline\n");
@@ -78,6 +81,7 @@ public class toLatex {
       StringJoiner joiner = new StringJoiner(" & ");
       joiner.add(location);
       int licznosc = 0;
+
 
       for (String rowLocation : locations) {
         int value;
@@ -87,6 +91,7 @@ public class toLatex {
 
         }
       }
+      all += licznosc;
       try {
         joiner.add(mapa.get(location, location) + " / " + Integer.toString(licznosc));
       } catch (NullPointerException e) {
@@ -104,10 +109,27 @@ public class toLatex {
       stringBuilder.append("\\\\\n");
     }
     stringBuilder.append("\\hline\n");
+
+    double total = 0.0;
+
+    for (String location : locations) {
+      total += mapa.get(location, location);
+    }
+
+    StringJoiner joiner = new StringJoiner(" & ");
+    joiner.add(df.format(total) + " / " + "5409");
+    joiner.add(df.format((total * 100.0) / 5409d) + "%");
+
+    stringBuilder.append(joiner.toString());
+    stringBuilder.append("\\\\\n");
+    stringBuilder.append("\\hline\n");
+
     stringBuilder.append("\\end{tabular}\n");
-    stringBuilder.append("{\\raggedright ");
-    stringBuilder.append(opis);
-    stringBuilder.append(" \\par}");
+    stringBuilder.append("\\caption{" + opis + "}");
+    stringBuilder.append("\\end{table}\n");
+
+
+
 
     return stringBuilder.toString();
   }

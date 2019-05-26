@@ -91,32 +91,33 @@ public class Main {
       System.out.println("Ustalanie cechy skończone");
 
       // Pobieranie elementów do zimnego startu
-      Corpus knnCorpus = getNElements(100,
+      Corpus knnCorpus = getNElements(30,
           corpus,
           "locations",
           Arrays.asList("japan", "west-germany", "canada", "usa", "france", "uk"));
 
-      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 5, "locations");
+      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 10, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
       // Dodawanie cech
-//      corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
-//      testCorpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
-//
+      corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
+      testCorpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
+
       corpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
       testCorpus.forEach(o -> o.setStringFeature(bigrams.extract(o)));
-//
-//      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
-//      testCorpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
-//
-//      corpus.forEach(o -> o.setNumericFeature(keywordsWeightedSum.extract(o)));
-//      testCorpus.forEach(o -> o.setNumericFeature(keywordsWeightedSum.extract(o)));
-//
-//      corpus.forEach(o -> o.setNumericFeature(quarterKeywordOccurenceRatio.extract(o)));
-//      testCorpus.forEach(o -> o.setNumericFeature(quarterKeywordOccurenceRatio.extract(o)));
-//
-//      corpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
-//      testCorpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
+
+      corpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
+      testCorpus.forEach(o -> o.setNumericFeature(avg.extract(o)));
+
+      corpus.forEach(o -> o.setNumericFeature(keywordsWeightedSum.extract(o)));
+      testCorpus.forEach(o -> o.setNumericFeature(keywordsWeightedSum.extract(o)));
+
+      corpus.forEach(o -> o.setNumericFeature(quarterKeywordOccurenceRatio.extract(o)));
+      testCorpus.forEach(o -> o.setNumericFeature(quarterKeywordOccurenceRatio.extract(o)));
+
+      corpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
+      testCorpus.forEach(o -> o.setNumericFeature(uniqueToAllTokensRatio.extract(o)));
+
 
       System.out.println("cecha testowy skończone");
 
@@ -134,8 +135,9 @@ public class Main {
 
       System.out.println(predictor.getResults());
 
-      System.out.println(mapToLatex(predictor.getResults(), "bla"));
-      System.out.println(mapToPercentLatex(predictor.getResults(), "bla"));
+      System.out.println(mapToLatex(predictor.getResults(), "Macierz pomyłek"));
+      System.out
+          .println(mapToPercentLatex(predictor.getResults(), "Ilość poprawnie skwalifikowanych"));
 
 
     } catch (IOException e) {

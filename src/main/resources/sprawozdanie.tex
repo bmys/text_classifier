@@ -77,7 +77,9 @@ W naszym rozwiązaniu problemu klasyfikacji zbioru artykułów prasowych ze zbio
    \item Najczęściej występujące dwuliterowe podciągi w dokumencie
 reprezentowane jako słowo zbudowane z tych podciągów według liczności ich występowania.
 
-  \item Stosunek ilości słów kluczowych występujących w pierwszej i czwartej ćwiartce słów w dokumencie do ilości słów kluczowych występujących w drugiej i trzeciej ćwiartce słów w dokumencie  
+  \item Stosunek ilości słów kluczowych występujących w pierwszej i czwartej ćwiartce słów w dokumencie do ilości słów kluczowych występujących w drugiej i trzeciej ćwiartce słów w dokumencie.
+  
+    \item Stosunek ilości unikalnych słów do ilości słów w dokumencie
 \end{enumerate}
 
 
@@ -97,45 +99,150 @@ Metryka taksówkowa:
 $$\sum _{i=1}^{n}|x_{i}-y_{i}|$$
 
 
+\section{Wyniki}
+
+\subsection{Porównanie wpływu parametru k na klasyfikacje}
+Wszystkie cechy, k = 2, metryka: euklidesowa, słów kluczowych na klasę: 10\newline
+
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ X  & japan & west-germany & canada & usa & france & uk\\
+\hline
+japan & 19 & 1 & 23 & 170 & 5 & 0\\
+\hline
+west-germany & 24 & 5 & 16 & 85 & 3 & 0\\
+\hline
+canada & 13 & 0 & 15 & 287 & 1 & 1\\
+\hline
+usa & 150 & 0 & 164 & 4009 & 13 & 5\\
+\hline
+france & 7 & 1 & 4 & 81 & 2 & 0\\
+\hline
+uk & 18 & 0 & 23 & 260 & 2 & 2\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline
 Etykieta & Wynik klasyfikacji & procent\\
 \hline
-japan & 69 / 218 & 31,65\%\\
+japan & 19 / 218 & 8,72\%\\
 \hline
-west-germany & 18 / 133 & 13,53\%\\
+west-germany & 5 / 133 & 3,76\%\\
 \hline
-canada & 52 / 317 & 16,40\%\\
+canada & 15 / 317 & 4,73\%\\
 \hline
-usa & 1130 / 4341 & 26,03\%\\
+usa & 4009 / 4341 & 92,35\%\\
 \hline
-france & 8 / 95 & 8,42\%\\
+france & 2 / 95 & 2,11\%\\
 \hline
-uk & 54 / 305 & 17,70\%\\
+uk & 2 / 305 & ,66\%\\
 \hline
 \end{tabular}
-{\raggedright bla \par}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
 
 
+
+
+
+\newpage
+Wszystkie cechy, k = 5, metryka: euklidesowa, słów kluczowych na klasę: 10\newline
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ X  & japan & west-germany & canada & usa & france & uk\\
+\hline
+japan & 3 & 22 & 40 & 134 & 19 & 0\\
+\hline
+west-germany & 1 & 27 & 17 & 72 & 16 & 0\\
+\hline
+canada & 2 & 19 & 111 & 176 & 8 & 1\\
+\hline
+usa & 12 & 181 & 2031 & 1943 & 105 & 69\\
+\hline
+france & 3 & 11 & 12 & 66 & 3 & 0\\
+\hline
+uk & 6 & 14 & 57 & 213 & 13 & 2\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline
 Etykieta & Wynik klasyfikacji & procent\\
 \hline
-japan & 67 / 218 & 30,73\%\\
+japan & 3 / 218 & 1,38\%\\
 \hline
-west-germany & 34 / 133 & 25,56\%\\
+west-germany & 27 / 133 & 20,30\%\\
 \hline
-canada & 91 / 317 & 28,71\%\\
+canada & 111 / 317 & 35,02\%\\
 \hline
-usa & 1605 / 4341 & 36,97\%\\
+usa & 1943 / 4341 & 44,76\%\\
 \hline
-france & 8 / 95 & 8,42\%\\
+france & 3 / 95 & 3,16\%\\
 \hline
-uk & 37 / 305 & 12,13\%\\
+uk & 2 / 305 & ,66\%\\
 \hline
 \end{tabular}
-{\raggedright 
-bla 
-\par}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
+
+
+
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ X  & japan & west-germany & canada & usa & france & uk\\
+\hline
+japan & 65 & 38 & 14 & 30 & 0 & 71\\
+\hline
+west-germany & 33 & 38 & 4 & 11 & 0 & 47\\
+\hline
+canada & 64 & 22 & 51 & 30 & 0 & 150\\
+\hline
+usa & 556 & 209 & 892 & 74 & 1 & 2609\\
+\hline
+france & 33 & 10 & 3 & 15 & 0 & 34\\
+\hline
+uk & 91 & 24 & 15 & 35 & 1 & 139\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+japan & 65 / 218 & 29,82\%\\
+\hline
+west-germany & 38 / 133 & 28,57\%\\
+\hline
+canada & 51 / 317 & 16,09\%\\
+\hline
+usa & 74 / 4341 & 1,70\%\\
+\hline
+france & null / 95 & 0\%\\
+\hline
+uk & 139 / 305 & 45,57\%\\
+\hline
+\end{tabular}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
+
+
 
 \end{document}
