@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.util.Pair;
-import metrics.TaxiCabMetric;
+import metrics.EuclideanMetric;
 
 public class Main {
 
@@ -96,10 +96,10 @@ public class Main {
           "locations",
           Arrays.asList("japan", "west-germany", "canada", "usa", "france", "uk"));
 
-      KNN knn = new KNN(knnCorpus, new TaxiCabMetric(), 8, "locations");
+      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 8, "locations");
       Predictor predictor = new Predictor(knn, "locations");
 
-      // Dodawanie cech
+//       Dodawanie cech
       corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
       testCorpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));
 
