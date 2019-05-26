@@ -25,15 +25,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.util.Pair;
-import metrics.EuclideanMetric;
+import metrics.ChebyshevMetric;
 
 public class Main {
 
   public static void main(String[] args) {
     System.out.println("Hello World!");
 
+//    List<String> locations = Arrays
+//        .asList("japan", "west-germany", "canada", "usa", "france", "uk");
+
     List<String> locations = Arrays
-        .asList("japan", "west-germany", "canada", "usa", "france", "uk");
+        .asList("crude", "jobs", "sugar");
 
     try {
       // Data loading
@@ -63,7 +66,7 @@ public class Main {
       for (String location : locations) {
         List<List<String>> k = corpus
             .stream()
-            .filter(o -> o.getLabels().get("locations").get(0).equals(location))
+            .filter(o -> o.getLabels().get("topic").get(0).equals(location))
             .map(Document::getTokens)
             .collect(Collectors.toList());
 
@@ -90,14 +93,20 @@ public class Main {
 
       System.out.println("Ustalanie cechy skończone");
 
-      // Pobieranie elementów do zimnego startu
-      Corpus knnCorpus = getNElements(30,
-          corpus,
-          "locations",
-          Arrays.asList("japan", "west-germany", "canada", "usa", "france", "uk"));
+//      // Pobieranie elementów do zimnego startu
+//      Corpus knnCorpus = getNElements(30,
+//          corpus,
+//          "locations",
+//          Arrays.asList("japan", "west-germany", "canada", "usa", "france", "uk"));
 
-      KNN knn = new KNN(knnCorpus, new EuclideanMetric(), 8, "locations");
-      Predictor predictor = new Predictor(knn, "locations");
+      // Pobieranie elementów do zimnego startu
+      Corpus knnCorpus = getNElements(200,
+          corpus,
+          "topic",
+          locations);
+
+      KNN knn = new KNN(knnCorpus, new ChebyshevMetric(), 8, "topic");
+      Predictor predictor = new Predictor(knn, "topic");
 
 //       Dodawanie cech
       corpus.forEach(o -> o.setStringFeature(firstSentenceFeature.extract(o)));

@@ -788,6 +788,110 @@ wszystkie & 2471,00 / 5409 & 45,68\%\\
 \end{tabular}
 \caption{Ilość poprawnie skwalifikowanych}\end{table}
 
+\newpage
+\subsection{Zbadanie predykcji dla etykiety topics z wartościami crude, jobs, sugar oraz wpływu na klasyfikacje zwiększenia ilości słów kluczowych}
+
+\subsubsection{Wszystkie cechy k = 8, metryka: czebyszewa, słów kluczowych na klasę: 30}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+ X  & crude & jobs & sugar\\
+\hline
+crude & 68 & 62 & 30\\
+\hline
+jobs & 5 & 16 & 4\\
+\hline
+sugar & 17 & 17 & 20\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+crude & 68 / 160 & 42,50\%\\
+\hline
+jobs & 16 / 25 & 64,00\%\\
+\hline
+sugar & 20 / 54 & 37,04\%\\
+\hline
+wszystkie & 104,00 / 239 & 43,51\%\\
+\hline
+\end{tabular}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
+
+\newpage
+\subsubsection{Wszystkie cechy k = 8, metryka: czebyszewa, słów kluczowych na klasę: 80}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+ X  & crude & jobs & sugar\\
+\hline
+crude & 83 & 5 & 72\\
+\hline
+jobs & 7 & 9 & 9\\
+\hline
+sugar & 14 & 5 & 35\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+crude & 83 / 160 & 51,88\%\\
+\hline
+jobs & 9 / 25 & 36,00\%\\
+\hline
+sugar & 35 / 54 & 64,81\%\\
+\hline
+wszystkie & 127,00 / 239 & 53,14\%\\
+\hline
+\end{tabular}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
+
+\newpage
+\subsubsection{Wszystkie cechy k = 8, metryka: czebyszewa, słów kluczowych na klasę: 200}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+ X  & crude & jobs & sugar\\
+\hline
+crude & 148 & 2 & 10\\
+\hline
+jobs & 16 & 3 & 6\\
+\hline
+sugar & 35 & 2 & 17\\
+\hline
+\end{tabular}
+\caption{Macierz pomyłek}\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Etykieta & Wynik klasyfikacji & procent\\
+\hline
+crude & 148 / 160 & 92,50\%\\
+\hline
+jobs & 3 / 25 & 12,00\%\\
+\hline
+sugar & 17 / 54 & 31,48\%\\
+\hline
+wszystkie & 168,00 / 239 & 70,29\%\\
+\hline
+\end{tabular}
+\caption{Ilość poprawnie skwalifikowanych}\end{table}
+
 
 
 \end{document}

@@ -36,26 +36,13 @@ public class LoadSGML {
 
     for (File file : files) {
       Document doc = loadSgml(file.toString());
-      List<Model.Document> articlesFromDoc = loadArticlesWithLocation(doc, locs);
+      List<Model.Document> articlesFromDoc = loadArticlesWithTopic(doc, locs);
       System.out.println(articlesFromDoc.size());
       articles.addAll(articlesFromDoc);
     }
     return articles;
   }
 
-  public static List<Model.Document> filterLocation(
-      List<Model.Document> articles, List<String> locations) {
-    List<Model.Document> filteredArticles = new ArrayList<>();
-
-    for (Model.Document art : articles) {
-      List<String> loc = art.getLabels().get("locations");
-
-      if (loc.size() == 1 && locations.contains(loc.get(0))) {
-        filteredArticles.add(art);
-      }
-    }
-    return filteredArticles;
-  }
 
   public static List<Model.Document> loadArticlesWithLocation(Document doc, List<String> locs) {
     List<Model.Document> articles = new ArrayList<>();
@@ -76,6 +63,31 @@ public class LoadSGML {
       Model.Document art = new Model.Document();
       art.setRawText(text);
       art.setLabels("locations", placesList);
+      articles.add(art);
+    }
+    return articles;
+  }
+
+
+  public static List<Model.Document> loadArticlesWithTopic(Document doc, List<String> topics) {
+    List<Model.Document> articles = new ArrayList<>();
+
+    Elements reuters = doc.select("REUTERS");
+
+    for (Element elem : reuters) {
+      String places = elem.select("TOPICS > D").text();
+      List<String> placesList = new ArrayList<>(Arrays.asList(places.split("\\s+")));
+
+      if (placesList.size() != 1 || !topics.contains(placesList.get(0))) {
+        continue;
+      }
+
+      //      String title = elem.select("TITLE").text();
+      String text = elem.select("INNER").text();
+
+      Model.Document art = new Model.Document();
+      art.setRawText(text);
+      art.setLabels("topic", placesList);
       articles.add(art);
     }
     return articles;
